@@ -1,0 +1,16 @@
+{
+    "name": "dsv/ci-twig",
+    "description": "CI-Twig it's a simple implementation of Twig template engine for CodeIgniter. It supports assets (using Assetic),themes, layouts, templates for regular apps and also for apps that use HMVC",
+    "type": "codeigniter-library",
+    "require": {
+        "composer/installers": "*",
+        "twig/twig": "^1.18",
+        "kriswallsmith/assetic": "^1.2"
+    }, 
+    "authors": [
+        {
+            "name": "David Sosa Valdes",
+            "email": "david.sosa.valdes@gmail.com"
+        }
+    ]
+}

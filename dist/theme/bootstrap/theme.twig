@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		{% block head %}
+			<title>{% block title %}{% endblock %} - {{system_fullname|title}}</title>
+		{% endblock %}
+		{% stylesheets 'css/*' '@module_css' filter='cssrewrite' %}
+		    <link href="{{ base_url('assets/' ~ asset_url) }}" type="text/css" rel="stylesheet" />
+		{% endstylesheets %}				
+	</head>
+	<body>
+		{% block content %}{% endblock %}
+        <div id="footer">{% block footer %}{% endblock %}</div>
+    	{% javascripts 'js/*' '@module_js' %}
+        	<script src="{{ base_url('assets/' ~ asset_url) }}"></script>
+    	{% endjavascripts %}	
+	</body>
+</html>
