@@ -12,5 +12,10 @@
             "name": "David Sosa Valdes",
             "email": "david.sosa.valdes@gmail.com"
         }
-    ]
+    ],
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
+    }    
 }
