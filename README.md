@@ -1,7 +1,7 @@
 # Codeigniter Twig #
 ---
 
-CI-Twig it's a simple implementation of Twig/Assetic template engine for CodeIgniter 3.0. It supports themes, layouts, templates for regular apps and also for apps that use HMVC. It's gonna make your life easier for developing and maintaining your CodeIgniter applications where themes and structured templates are necessary.
+CI-Twig it's a simple implementation of Twig/Assetic template engine for CodeIgniter 3.0. It supports theme, layouts, templates for regular apps and also for apps that use HMVC. It's gonna make your life easier for developing and maintaining your CodeIgniter applications where theme and structured templates are necessary.
 
 With CI-Twig you can separately set the theme, layout, template and even the assets for each page. Also this does not replace CodeIgniter's default views, so you can still load views as such as: $this->load->view().
 
@@ -11,6 +11,17 @@ With CI-Twig you can separately set the theme, layout, template and even the ass
 * CodeIgniter 3.x 
 
 Notes: Codeigniter 2.x is not supported.
+
+# How to install #
+---
+
+## 1. Install it with composer:
+
+```
+composer install "dsv/ci-twig": "^1.0"
+```
+
+**Note**: Remember to include the autoload file inside your Codeigniter `application/config/config.php` file.
 
 # How to use it
 ---
@@ -25,7 +36,7 @@ Notes: Codeigniter 2.x is not supported.
 
 ```
 +-FCPATH/
-| +-themes/
+| +-theme/
 | +-assets/
 | | +-css/
 | | +-js/
@@ -38,9 +49,9 @@ Notes: Codeigniter 2.x is not supported.
 
 **Copy the theme example structure.**
 
-By default CI-Twig uses a `Bootstrap theme`, so that you can create a similar structure in your new themes. 
+By default CI-Twig uses a `Bootstrap theme`, so that you can create a similar structure in your new theme. 
 
-* Copy the `dist/bootstrap` directory to `themes`.
+* Copy the `dist/bootstrap` directory to `theme`.
 
 You should end up with a structure like this:
 
@@ -48,7 +59,7 @@ You should end up with a structure like this:
 +-FCPATH/
 | +-application/
 | +-system/
-| +-themes/
+| +-theme/
 | | +-bootstrap/
 | +-assets/
 | | +-css/
@@ -84,7 +95,7 @@ class Welcome extends CI_Controller
 {
 	public function index()
 	{	
-		$this->load->library('twig');
+		$this->load->library('ci-twig/twig');
 		$this->twig->set_theme('bootstrap')->add_layout('container');
 		$this->twig->render();
 	}
@@ -104,7 +115,7 @@ class Welcome extends CI_Controller
 {
 	public function index()
 	{	
-		$this->load->library('twig');
+		$this->load->library('ci-twig/twig');
 		$this->twig->set_theme('bootstrap')->add_layout('container');
 		$this->twig->add_view('welcome_message')->render();	
 	}
@@ -125,15 +136,15 @@ And there you go, you can add many views as you want before the render method oc
 # Create a new Theme 
 ---
 
-Obviously, you can create as many layouts and themes you want, follow me in every step for doing this. 
+Obviously, you can create as many layouts and theme you want, follow me in every step for doing this. 
 
 ## 1. Create the directory
 
-Create a new directory structure inside the `themes` folder:
+Create a new directory structure inside the `theme` folder:
 
 ```
 +-FCPATH/
-| +-themes/
+| +-theme/
 | | +-new_theme/
 | | | +-assets (all your theme asset files needed)
 | | | | +- css/ 
@@ -194,7 +205,7 @@ class Welcome extends CI_Controller
 {
 	public function index()
 	{	
-		$this->load->library('twig');
+		$this->load->library('ci-twig/twig');
 		$this->twig->set_theme('bootstrap')->add_layout('container');
 		$this->twig->add_view('welcome_message')->render();	
 	}

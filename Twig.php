@@ -597,6 +597,8 @@ class Twig
 	 */
 	public function render($view = "", $params = array())
 	{
+		$this->_ci->load_helper('url');
+		
 		$this->_set_global_vars();
 		$this->_set_ci_functions();
 		$this->_add_module_view_paths();
