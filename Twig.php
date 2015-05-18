@@ -25,36 +25,36 @@ class Twig
 	 * @var string
 	 */
 	protected $_default_template = 'theme';
+
 	/**
 	 * [$_directories description]
 	 * @var array
 	 */
 	protected $_directories = array('theme','assets','modules');
+
 	/**
 	 * [$_modules_path description]
 	 * @var [type]
 	 */
 	protected $_hmvc;
+
 	/**
 	 * [$_auto_reload description]
 	 * @var boolean
 	 */
 	protected $_auto_reload = FALSE;
+
 	/**
 	 * [$_directives description]
 	 * @var [type]
 	 */
 	protected $_directives;
+
 	/**
 	 * [$_theme description]
 	 * @var [type]
 	 */
 	protected $_theme;
-	/**
-	 * [$_module description]
-	 * @var [type]
-	 */
-	protected $_module;
 
 	/**
 	 * [$_views description]
@@ -159,14 +159,14 @@ class Twig
         	{
         		throw new Exception("HMVC Module is not installed.");
         	}
-        	$this->_hmvc->module = $this->_ci->router->fetch_module();
+        	if ($this->_hmvc->module = $this->_ci->router->fetch_module()) 
+        	{
+        		return;
+        	}
         }
-        else
-        {
-        	$this->_hmvc->module = NULL;
-        	$this->_hmvc->controller = $this->_ci->router->fetch_class();
-        	$this->_hmvc->path = APPPATH;
-        }
+        $this->_hmvc->module = NULL;
+        $this->_hmvc->controller = $this->_ci->router->fetch_class();
+        $this->_hmvc->path = APPPATH;
 	}
 
 	/**
@@ -245,20 +245,15 @@ class Twig
 	 */
 	private function _add_module_view_paths()
 	{
-		if ($this->_module !== NULL) 
+		if ($this->_hmvc->module !== NULL) 
 		{
-			$path = "{$this->_paths['modules']}/{$this->_module}/views";
+			$path = "{$this->_paths['modules']}{$this->_hmvc->module}/views";
 			$this->add_path($path,'module', FALSE, FALSE);
-			// $module_view_paths = $this->_ci->load->get_module_paths($this->_module,'views');
-   //      	foreach ($module_view_paths as $key => $path) 
-   //      	{
-   //      		$this->add_path($path,'module');	
-   //      	}
 		}
 		else 
 		{
 			$path = 'application/views/'. $this->_hmvc->controller;
-			$this->add_path($path,'module');
+			$this->add_path($path,'module',FALSE,FALSE);
 		}
         return $this;
 	}
@@ -357,7 +352,8 @@ class Twig
 	public function add_path($path = "", $space_name = "", $prepend = FALSE, $need_abs_path = TRUE)
 	{
 		$path = rtrim($path, '/').'/';
-		$absolute_path = ($need_abs_path)? FCPATH."{$path}": $path;
+		
+		$absolute_path = ($need_abs_path)? FCPATH."../{$path}": $path;
 		try {
 			if (!is_a($this->_loader, 'Twig_Loader_Filesystem')) 
 			{
@@ -616,7 +612,7 @@ class Twig
 
 		$am = new AssetManager();
 
-		$absolute_path = rtrim("{$this->_paths['modules']}{$this->_module}",'/');
+		$absolute_path = rtrim("{$this->_paths['modules']}{$this->_hmvc->module}",'/');
 		$globals = array(
 			'module_js'  => 'assets/js',
 			'module_css' => 'assets/css',
