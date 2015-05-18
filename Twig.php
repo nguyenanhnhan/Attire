@@ -565,7 +565,7 @@ class Twig
 		}
 		if (function_exists('site_url')) {
 			$this->add_function('site_url',function($path){
-				return site_url();
+				return site_url($path);
 			});
 		}
 		if (function_exists('form_open')) 
