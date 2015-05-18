@@ -12,7 +12,8 @@ With CI-Twig you can separately set the theme, layout, template and even the ass
 
 Notes: Codeigniter 2.x is not supported.
 
-# How to use it # 
+# How to use it
+---
 
 ## 1. Load library ##
 
@@ -87,7 +88,7 @@ class Welcome extends CI_Controller
 }
 ```
 
-## 5. What's next?
+## 5. What's next? ##
 
 In the example above we only displayed the default template and layout. You can add views to this layout using ```$this->twig->add_view($view,$params)```command. It's exactly like the Codeigniter's method ```$this->load->view($view,$params)``` used for loading views.
 
@@ -118,9 +119,14 @@ class Welcome extends CI_Controller
 
 And there you go, you can add many views as you want before the render method occurs.
 
-## Create a new Theme ##
+# Create a new Theme 
+---
 
-Obviously, you can create as many layouts and themes as you want. For example, create a new directory structure inside `themes` folder:
+Obviously, you can create as many layouts and themes as you want. 
+
+## 1. Create the directory
+
+Create a new directory structure inside the `themes` folder:
 
 ```
 +-FCPATH/
@@ -134,7 +140,9 @@ Obviously, you can create as many layouts and themes as you want. For example, c
 | | | +- theme.twig
 ```
 
-You are gonna need to create a new `theme.twig` structure, this is the default template used in every `CI-Twig` theme instance:
+## 2. Create a theme file
+
+You are gonna need to create a new `theme.twig` file structure, this is the default template used in every `CI-Twig` theme instance:
 
 ```
 <!DOCTYPE html>
@@ -157,6 +165,8 @@ You are gonna need to create a new `theme.twig` structure, this is the default t
 </html>
 ```
 
+## 3. Create the layout
+
 Same as `theme.twig`, the `layouts/new_layout.twig` default template: 
 
 ```
@@ -169,6 +179,8 @@ Same as `theme.twig`, the `layouts/new_layout.twig` default template:
 	{% endfor %}
 {% endblock %}
 ```
+
+# 4. Load theme layout and views
 
 Set the new theme and structure, add the views and load it before sending the output to the browser.
 
@@ -188,10 +200,14 @@ class Welcome extends CI_Controller
 
 Notice that you only need to specify the name of the template (without the extension `*.twig`).
 
-There is much more cool stuff that you should check out by visiting the docs (anytime soon).
+There is much more cool stuff that you should check out by visiting the [docs (anytime soon)](#).
 
 # CHANGELOG
 ---
+
+### 1.0.0 ###
+
+* First version released (nothing to see here).
 
 
 # COPYRIGHT #
