@@ -219,9 +219,11 @@ There is much more cool stuff that you should check out by visiting the [docs (a
 # CHANGELOG
 ---
 
-### 1.0.0 ###
+### 1.0.4 ###
 
-* First version released (nothing to see here).
+* Fix bugs in HMVC Mode add_path
+* Catch add_path errors
+* Autoload url codeigniter helper (used as default) 
 
 
 # COPYRIGHT #
