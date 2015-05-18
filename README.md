@@ -18,7 +18,7 @@ Notes: Codeigniter 2.x is not supported.
 ## 1. Install it with composer:
 
 ```
-composer require "dsv/ci-twig": "^1.0"
+composer require "dsv/ci-twig":"^1.0"
 ```
 
 **Note**: Remember to include the autoload file inside your Codeigniter `application/config/config.php` file.
@@ -219,9 +219,11 @@ There is much more cool stuff that you should check out by visiting the [docs (a
 # CHANGELOG
 ---
 
-### 1.0.0 ###
+### 1.0.4 ###
 
-* First version released (nothing to see here).
+* Fix bugs in HMVC Mode add_path
+* Catch add_path errors
+* Autoload url codeigniter helper (used as default) 
 
 
 # COPYRIGHT #
