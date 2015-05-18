@@ -1,6 +1,7 @@
 # Codeigniter Twig #
 ---
 
+[![Latest Stable Version](https://poser.pugx.org/dsv/ci-twig/v/stable)](https://packagist.org/packages/dsv/ci-twig) [![Total Downloads](https://poser.pugx.org/dsv/ci-twig/downloads)](https://packagist.org/packages/dsv/ci-twig) [![Latest Unstable Version](https://poser.pugx.org/dsv/ci-twig/v/unstable)](https://packagist.org/packages/dsv/ci-twig) [![License](https://poser.pugx.org/dsv/ci-twig/license)](https://packagist.org/packages/dsv/ci-twig)
 CI-Twig it's a simple implementation of Twig/Assetic template engine for CodeIgniter 3.0. It supports theme, layouts, templates for regular apps and also for apps that use HMVC. It's gonna make your life easier for developing and maintaining your CodeIgniter applications where theme and structured templates are necessary.
 
 With CI-Twig you can separately set the theme, layout, template and even the assets for each page. Also this does not replace CodeIgniter's default views, so you can still load views as such as: $this->load->view().
@@ -28,7 +29,9 @@ composer require "dsv/ci-twig":"^1.0"
 
 ## 1. Load library ##
 
-```$this->load->library('ci-twig/twig'); ``` 
+```
+$this->load->library('ci-twig/twig'); 
+``` 
 
 ## 2. Set up directory structure
 
@@ -83,8 +86,9 @@ $this->twig->set_theme('bootstrap')->add_layout('container');
 
 ## 4. Display the theme
 
-```$this->twig->render();```
-
+```
+$this->twig->render();
+```
 
 A full example using `CI-Twig` in the Welcome Controller:
 
