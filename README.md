@@ -31,7 +31,10 @@ Notes: Codeigniter 2.x is not supported.
 | | +-js/
 ```
 
-**Note**: `FCPATH` is Codeigniter's principal directory, it contains the `application` directory where all your controllers and models is placed.
+**Notes** 
+
+* `FCPATH` is Codeigniter's principal directory, outside the `application` directory where all your controllers and models are placed.
+* `CI-Twig` uses `Assetics` for manage the assets used in every theme, so you are gonna need to set the `assets` directory with writable permissions.
 
 **Copy the theme example structure.**
 
@@ -122,7 +125,7 @@ And there you go, you can add many views as you want before the render method oc
 # Create a new Theme 
 ---
 
-Obviously, you can create as many layouts and themes as you want. 
+Obviously, you can create as many layouts and themes you want, follow me in every step for doing this. 
 
 ## 1. Create the directory
 
