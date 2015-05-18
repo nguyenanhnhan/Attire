@@ -18,7 +18,7 @@ Notes: Codeigniter 2.x is not supported.
 ## 1. Install it with composer:
 
 ```
-composer install "dsv/ci-twig": "^1.0"
+composer require "dsv/ci-twig": "^1.0"
 ```
 
 **Note**: Remember to include the autoload file inside your Codeigniter `application/config/config.php` file.
