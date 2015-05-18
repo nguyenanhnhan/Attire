@@ -356,23 +356,21 @@ class Twig
 	 */
 	public function add_path($path = "", $space_name = "", $prepend = FALSE, $need_abs_path = TRUE)
 	{
+		$path = rtrim($path, '/').'/';
+		$absolute_path = ($need_abs_path)? FCPATH."{$path}": $path;
 		try {
-			if (!is_string($path) || (!is_a($this->_loader, 'Twig_Loader_Filesystem'))) 
+			if (!is_a($this->_loader, 'Twig_Loader_Filesystem')) 
 			{
-				throw new Exception("Loader/Path is not set correctly.");
+				throw new Exception("Loader is not set correctly.");
+			}
+			if (!file_exists($path)) 
+			{
+				throw new Exception("{$path} is not currently exist.");
 			}
 		} catch (Exception $e) {
 			$this->_show_error($e->getMessage());
 		}
-		$path = rtrim($path, '/').'/';
-		if ($need_abs_path) 
-		{
-			$absolute_path = FCPATH."{$path}";
-		}
-		else
-		{
-			$absolute_path = $path;
-		}
+
 		if ($prepend === TRUE) 
 		{
 			if (strlen($space_name) >= 1) 
@@ -395,7 +393,6 @@ class Twig
 				$this->_loader->addPath($absolute_path);
 			}
 		}
-		
 		return $this;
 	}
 
