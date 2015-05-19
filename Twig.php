@@ -616,12 +616,18 @@ class Twig
 		$globals = array(
 			'module_js'  => 'assets/js',
 			'module_css' => 'assets/css',
-			'module_img' => 'assets/img',
+			'global_css' => 'assets/global/css',
+			'global_js' => 'assets/global/js'
 		);
 
 		foreach ($globals as $global => $global_path) 
 		{
-			if ($this->_hmvc->module === NULL) 
+			if (strpos($global_path, 'global') !== FALSE) 
+			{
+				$path = "{$absolute_path}/{$global_path}/*";
+				$am->set($global, new GlobAsset($path));			
+			}
+			elseif ($this->_hmvc->module === NULL) 
 			{
 				$path = "{$absolute_path}/{$global_path}/{$this->_hmvc->controller}/{$this->_hmvc->method}/*";
 				$am->set($global, new GlobAsset($path));
@@ -632,7 +638,6 @@ class Twig
 				$am->set($global, new GlobAsset($path));	
 			}
 		}
-
 		$fm = new FilterManager();
 		$fm->set('cssrewrite', new CssRewriteFilter());
 		

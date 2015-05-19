@@ -225,6 +225,10 @@ There is much more cool stuff that you should check out by visiting the [docs (a
 # CHANGELOG
 ---
 
+### 1.0.5 ###
+
+* Include global assets
+
 ### 1.0.4 ###
 
 * Fix bugs in HMVC Mode add_path
