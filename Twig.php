@@ -252,7 +252,7 @@ class Twig
 		}
 		else 
 		{
-			$path = 'application/views/'. $this->_hmvc->controller;
+			$path = VIEWPATH . $this->_hmvc->controller;
 			$this->add_path($path,'module',FALSE,FALSE);
 		}
         return $this;
@@ -617,7 +617,7 @@ class Twig
 			'module_js'  => 'assets/js',
 			'module_css' => 'assets/css',
 			'global_css' => 'assets/global/css',
-			'global_js' => 'assets/global/js'
+			'global_js'  => 'assets/global/js'
 		);
 
 		foreach ($globals as $global => $global_path) 
