@@ -18,6 +18,8 @@ use Assetic\Filter\CssRewriteFilter;
 use Assetic\Filter\LessFilter;
 use Assetic\Filter\Yui;
 
+use \RuntimeException;
+
 class Twig
 {
 	/**
@@ -657,8 +659,12 @@ class Twig
 		$resource = new TwigResource($this->_loader, $this->_default_template.$this->_extension);
 		$am->addResource($resource, 'twig');
 
-		$writer = new AssetWriter($absolute_path);
-		$writer->writeManagerAssets($am);	
+		try {
+			$writer = new AssetWriter($absolute_path);
+			$writer->writeManagerAssets($am);
+		} catch (\RuntimeException $e) {
+			$this->_show_error($e->getMessage());
+		}	
 		
 		if (! empty($this->_childs)) 
 		{
