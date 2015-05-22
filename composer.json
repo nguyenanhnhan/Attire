@@ -16,7 +16,7 @@
         "twig/twig": "^1.18",
         "kriswallsmith/assetic": "^1.2"
     }, 
-    "homepage": "https://bitbucket.org/davidsosavaldes/ci-twig",
+    "homepage": "https://gitlab.com/david-sosa-valdes/ci-twig.git",
     "authors": [
         {
             "name": "David Sosa Valdes",
