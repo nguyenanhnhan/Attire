@@ -20,105 +20,144 @@ use Assetic\Filter\Yui;
 
 use \RuntimeException;
 
+/**
+ * CodeIgniter
+ *
+ * An open source application development framework for PHP
+ *
+ * @package	CodeIgniter
+ * @author	EllisLab Dev Team
+ * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (http://ellislab.com/)
+ * @copyright	Copyright (c) 2014 - 2015, British Columbia Institute of Technology (http://bcit.ca/)
+ * @license	http://opensource.org/licenses/MIT	MIT License
+ * @link	http://codeigniter.com
+ * @since	Version 1.0.0
+ * @filesource
+ */
+
+/**
+ * CodeIgniter Twig Class
+ *
+ * Templating with this class is done by layering the standard CI view system and extending 
+ * it to asset management with Assetic. The basic idea is that for every single CI view 
+ * there are individual CSS, Javascript and View files that correlate to it and this 
+ * structure is conected with the Twig Class.
+ *
+ * @package		CodeIgniter
+ * @subpackage	Libraries 
+ * @category	Libraries
+ * @author		David Sosa Valdes
+ * @link		https://gitlab.com/david-sosa-valdes/ci-twig
+ * @copyright   Copyright (c) 2014, David Sosa Valdes.
+ * @version 	1.1.0
+ *
+ */
+
 class Twig
 {
 	/**
-	 * [$_default_template description]
+	 * Master layout template name
 	 * @var string
 	 */
 	protected $_default_template = 'theme';
 
 	/**
-	 * [$_directories description]
+	 * Directory structure 
 	 * @var array
 	 */
 	protected $_directories = array('theme','assets','modules');
 
 	/**
-	 * [$_modules_path description]
-	 * @var [type]
+	 * HMVC environment class (modular,default)
+	 * @var object
 	 */
 	protected $_hmvc;
 
 	/**
-	 * [$_auto_reload description]
+	 * Twig_Environment auto reload attr 
 	 * @var boolean
 	 */
 	protected $_auto_reload = FALSE;
 
 	/**
-	 * [$_directives description]
-	 * @var [type]
+	 * Codeigniter directives used as global functions.
+	 * @var mixed
 	 */
 	protected $_directives;
 
 	/**
-	 * [$_theme description]
-	 * @var [type]
+	 * Theme selected as interface
+	 * @var string
 	 */
 	protected $_theme;
 
 	/**
-	 * [$_views description]
+	 * Set of views used Twig_Filesystem
 	 * @var array
 	 */
 	protected $_views = array();
 
 	/**
-	 * [$_available_lexer description]
+	 * The syntax set used for personalize Twig Lexer
 	 * @var array
 	 */
 	protected $_available_lexer = array('tag_comment','tag_block','tag_variable');
+
 	/**
-	 * [$_params description]
+	 * Set of global params
 	 * @var array
 	 */
 	protected $_params = array();
 
 	/**
-	 * [$_extension description]
+	 * Twig file extension
 	 * @var string
 	 */
 	protected $_extension = '.twig';
 
 	/**
-	 * [$_childs description]
+	 * Twig layout childs
 	 * @var array
 	 */
 	protected $_childs = array();
+
 	/**
-	 * [$_paths description]
+	 * Set of global paths
 	 * @var array
 	 */
 	protected $_paths = array();
 
 	/**
-	 * [$_debug description]
+	 * Twig_Environment debug mode
 	 * @var boolean
 	 */
 	protected $_debug = FALSE;
 
 	/**
-	 * [$_environment description]
-	 * @var [type]
+	 * Twig_Environment object
+	 * @var object
 	 */
 	protected $_environment;
 
 	/**
-	 * [$_loader description]
-	 * @var [type]
+	 * Twig_Loader_Filesystem object
+	 * @var object
 	 */
 	protected $_loader;
 
 	/**
-	 * [$_ci description]
+	 * CI Singleton
 	 * @var [type]
 	 */
   	protected $_ci;
 
   	/**
-  	 * [__construct description]
+  	 * Class Constuctor
+  	 *
+  	 * Loads the HMVC environment, CI Instance, Filesystem paths and directives.
+  	 * 
   	 * @param array $config [description]
+  	 * @return void 
   	 */
 	public function __construct($config = array())
 	{
@@ -147,7 +186,10 @@ class Twig
 	}
 
 	/**
-	 * [_set_hmvc_environment description]
+	 * Initialize CI Environment
+	 * 
+	 * Create an modular environment if HMVC Class is loaded else default CI method.
+	 * @return void
 	 */
 	private function _set_hmvc_environment()
 	{
@@ -172,7 +214,11 @@ class Twig
 	}
 
 	/**
-	 * [_set_installation_paths description]
+	 * Initialize absolute filesystem paths
+	 *
+	 * Depends of the HMVC Environment.
+	 * 
+	 * @return void
 	 */
 	private function _set_installation_paths()
 	{
@@ -198,7 +244,7 @@ class Twig
 			
 			if (! file_exists($path)) 
 			{
-				throw new Exception("{$path} currently not exist.");
+				throw new Exception("Directory {$path} currently not exist.");
 			}
 			else 
 			{
@@ -207,7 +253,15 @@ class Twig
 		}
 	}	
 
-	public function set_extension($new_extension)
+	/**
+	 * Set Twig Extension
+	 *
+	 * Used (only) in every file in Theme directory.
+	 * 
+	 * @param string $new_extension 
+	 * @return void 
+	 */
+	public function set_extension($new_extension = "")
 	{
 		try {
 			if (! preg_match('/^.*\.(twig|php.twig|html|html.twig)$/i', $new_extension)) {
@@ -220,8 +274,10 @@ class Twig
 	}
 
 	/**
-	 * [set_envoirment description]
-	 * @param string $name [description]
+	 * Initialize global attributes
+	 * 
+	 * @param array $params
+	 * @return void
 	 */
 	private function _set($params = array())
 	{
@@ -232,10 +288,13 @@ class Twig
 	}	
 
 	/**
-	 * [_show_error description]
-	 * @param  string $error [description]
-	 * @param  string $title [description]
-	 * @return [type]        [description]
+	 * Show CI Error
+	 *
+	 * Used in every try/catch 
+	 * 
+	 * @param  string $error description of the error
+	 * @param  string $title title error
+	 * @return void
 	 */
 	private function _show_error($error = "", $title = 'Twig Error')
 	{
@@ -243,7 +302,11 @@ class Twig
 	}
 
 	/**
-	 * [_add_module_view_paths description]
+	 * Set HMVC view paths
+	 *
+	 * Loading all the CI view files Used in Twig Filesystem with especial notation
+	 *
+	 * @return void 
 	 */
 	private function _add_module_view_paths()
 	{
@@ -261,10 +324,14 @@ class Twig
 	}
 
 	/**
-	 * [set_loader description]
-	 * @param string  $type   [description]
-	 * @param [type]  $value  [description]
-	 * @param boolean $option [description]
+	 * Set Twig Loader
+	 *
+	 * The loaders are responsible for loading templates from a resource such as the Filesystem.
+	 * 
+	 * @param mixed  $value  Twig Loader first param 
+	 * @param string  $type  The current type of Twig Loader
+	 * @param boolean  $option 
+	 * @return void 
 	 */
 	public function set_loader($value, $type = "",$option = FALSE)
 	{
@@ -275,8 +342,11 @@ class Twig
 				$this->_loader = new Twig_Loader_Filesystem($directory);
 				
 				$params['debug']       = $this->_debug;
-				#$params["cache"]       = $this->_paths["cache"];
-				#$params['auto_reload'] = $this->_auto_reload;
+
+				# Currently not working
+				# 
+				# $params["cache"]       = $this->_paths["cache"];
+				# $params['auto_reload'] = $this->_auto_reload;
 				
 				$this->_environment = new Twig_Environment($this->_loader,$params);
 				break;
@@ -296,8 +366,13 @@ class Twig
 	}
 
 	/**
-	 * [set_lexer description]
-	 * @param array $lexer [description]
+	 * Set Twig Lexer
+	 *
+	 * Change the default Twig Lexer syntax, depends of available lexer declared
+	 * in the class
+	 * 
+	 * @param array $lexer 
+	 * @return self 
 	 */
 	public function set_lexer($lexer = array())
 	{
@@ -322,9 +397,14 @@ class Twig
 	}
 
 	/**
-	 * [add_function description]
-	 * @param string $name     [description]
-	 * @param [type] $function [description]
+	 * Add Twig Functions
+	 *
+	 * The functions can be called to generate content. The functions are called by his name 
+	 * and can have arguments
+	 * 
+	 * @param string $name  	Name of the function
+	 * @param mixed $function   Variable function
+	 * @return self
 	 */
 	public function add_function($name = "", $function)
 	{
@@ -346,16 +426,20 @@ class Twig
 	}
 
 	/**
-	 * [add_path description]
-	 * @param string  $path       [description]
-	 * @param string  $space_name [description]
-	 * @param boolean $prepend    [description]
+	 * Add global path
+	 *
+	 * Prepend or append Twig Loader global path
+	 * 
+	 * @param string  $path       Relative path
+	 * @param string  $space_name Space name without the '@'
+	 * @param boolean $prepend    Prepend method mode
+	 * @return void 
 	 */
 	public function add_path($path = "", $space_name = "", $prepend = FALSE, $need_abs_path = TRUE)
 	{
 		$path = rtrim($path, '/').'/';
-		
 		$absolute_path = ($need_abs_path)? FCPATH."../{$path}": $path;
+		
 		try {
 			if (!is_a($this->_loader, 'Twig_Loader_Filesystem')) 
 			{
@@ -395,9 +479,12 @@ class Twig
 	}
 
 	/**
-	 * [load_template description]
-	 * @param  string $path [description]
-	 * @return [type]       [description]
+	 * Load Twig Template
+	 * 
+	 * Loads a template by name
+	 * 
+	 * @param  string $path Filename
+	 * @return mixed       
 	 */
 	public function load_template($path = "")
 	{
@@ -414,11 +501,12 @@ class Twig
 	}
 
 	/**
-	 * [set_param description]
-	 * @param string $name  [description]
-	 * @param [type] $value [description]
+	 * Add global params in Twig
+	 * 
+	 * @param string $name  Param name
+	 * @param mixed $value Param value
 	 */
-	public function set_param($name = "",$value = NULL)
+	public function set_param($name = "", $value = NULL)
 	{
 		try {
 			if (!is_string($name)) {
@@ -432,8 +520,11 @@ class Twig
 	}
 
 	/**
-	 * [set_theme description]
-	 * @param string $type          [description]
+	 * Set Ci-Twig Theme
+	 *
+	 * Set the absolute path in the Twig loader filesystem method.
+	 * 
+	 * @param string $name Theme name
 	 */
 	public function set_theme($name = "")
 	{
@@ -444,10 +535,14 @@ class Twig
 	}
 
 	/**
-	 * [add_child description]
-	 * @param string $type       [description]
-	 * @param array  $params     [description]
-	 * @param string $child_path [description]
+	 * Add a child in Twig (Deprecated)
+	 *
+	 * All child files are rendered in the output in the order they added.
+	 *
+	 * @param string $type       filename
+	 * @param array  $params     child view params
+	 * @param string $child_path global child inside theme directory
+	 * @return void 
 	 */
 	public function add_child($type = "", $params = array(), $child_path = "childs")
 	{
@@ -465,9 +560,13 @@ class Twig
 	}
 
 	/**
-	 * [add_layout description]
-	 * @param string $type   [description]
-	 * @param array  $params [description]
+	 * Add a layout in Twig
+	 *
+	 * All layout files are rendered in the output in the order they added.
+	 *
+	 * @param string $type    filename
+	 * @param array  $params  child view params
+	 * @return void 
 	 */
 	public function add_layout($type = "", $params = array())
 	{
@@ -485,10 +584,16 @@ class Twig
 	}
 
 	/**
-	 * [add_view description]
-	 * @param string $view      [description]
-	 * @param array  $params    [description]
-	 * @param string $extension [description]
+	 * Add CI View file
+	 *
+	 * Every view file added (in the order they added) is rendered at last
+	 * 
+	 * Note: this method is equivalente to codeigniter load_view method.
+	 * 
+	 * @param string $view      filename
+	 * @param array  $params    view params
+	 * @param string $extension file extension used as default
+	 * @return void 
 	 */
 	public function add_view($view = "", $params = array(), $extension = '.php')
 	{
@@ -511,7 +616,13 @@ class Twig
 	}
 
 	/**
-	 * [_set_global_vars description]
+	 * Set Theme global vars
+	 *
+	 * For each global var it evals if is a CI-Twig directive, else set global param.
+	 *
+	 * Note: All global vars are declared in <theme>/config/config.php file and autoload
+	 * 		 before the render method.
+	 * @return void
 	 */
 	private function _set_global_vars()
 	{
@@ -555,7 +666,13 @@ class Twig
 	}
 
 	/**
-	 * [_set_ci_functions description]
+	 * Set CI Helper functions
+	 *
+	 * Used as a Twig function in every template if a specific helper is loaded in controller.
+	 *
+	 * Note: Some other functions are needed to add, this are the principal functions used in 
+	 * 		 every CI Project.
+	 * @return void 
 	 */
 	private function _set_ci_functions()
 	{
@@ -585,19 +702,22 @@ class Twig
 	}
 
 	/**
-	 * [render description]
-	 * @param  string $view   [description]
-	 * @param  array  $params [description]
-	 * @return [type]         [description]
+	 * Render the Twig template with some variables
+	 *
+	 * If Twig Loader method is string, we can render view as string template and
+	 * set the params, else there is no need to declare params in this method.
+	 * 
+	 * @param  string $view   
+	 * @param  array  $params 
+	 * @return void         
 	 */
 	public function render($view = "", $params = array())
-	{
-		$this->_ci->load->helper('url');
-		
+	{	
 		$this->_set_global_vars();
 		$this->_set_ci_functions();
 		$this->_add_module_view_paths();
 		
+		# Twig environment (master of puppets)
 		$twig = $this->_environment;
 
 		try {
@@ -609,19 +729,21 @@ class Twig
 			$this->_show_error($e->getMessage());
 		}		
 		
+		# Secure stuff
 		$escaper = new Twig_Extension_Escaper('html');
 		$twig->addExtension($escaper);		
 
+		# Declare asset manager and add global paths
 		$am = new AssetManager();
-
 		$absolute_path = rtrim("{$this->_paths['modules']}{$this->_hmvc->module}",'/');
+		
 		$globals = array(
 			'module_js'  => 'assets/js',
 			'module_css' => 'assets/css',
 			'global_css' => 'assets/global/css',
 			'global_js'  => 'assets/global/js'
 		);
-
+		# Is a global or module path, maybe we can solve it
 		foreach ($globals as $global => $global_path) 
 		{
 			if (strpos($global_path, 'global') !== FALSE) 
@@ -640,17 +762,19 @@ class Twig
 				$am->set($global, new GlobAsset($path));	
 			}
 		}
+		# Declare filters manager
 		$fm = new FilterManager();
 		$fm->set('cssrewrite', new CssRewriteFilter());
-		
 		$absolute_path = rtrim("{$this->_paths["theme"]}{$this->_theme}",'/').'/assets';
+
+		# Declare assetic factory with filters and assets
 		$factory = new AssetFactory($absolute_path);
 		$factory->setAssetManager($am);
 		$factory->setFilterManager($fm);
 		$factory->setDebug($this->_debug);
+
 		$absolute_path = rtrim($this->_paths['assets'],'/');
 		$factory->setDefaultOutput($absolute_path);
-		
 		$twig->addExtension(new AsseticExtension($factory));
 
 		$am = new LazyAssetManager($factory);
@@ -659,6 +783,7 @@ class Twig
 		$resource = new TwigResource($this->_loader, $this->_default_template.$this->_extension);
 		$am->addResource($resource, 'twig');
 
+		# Write all assets files in the output directory in one or more files
 		try {
 			$writer = new AssetWriter($absolute_path);
 			$writer->writeManagerAssets($am);
@@ -666,6 +791,7 @@ class Twig
 			$this->_show_error($e->getMessage());
 		}	
 		
+		# Render all childs
 		if (! empty($this->_childs)) 
 		{
 			foreach ($this->_childs as $child => $params) 
@@ -680,15 +806,15 @@ class Twig
 					$this->_show_error($e->getMessage());	
 				}
 			}
-			# Stop using childs when another render is set.
+			# Stop using childs when another render is call
 			$this->_childs = array();
 		}
+		# Else render params as string format (if declared)
 		elseif (strlen($view) <= 1) 
 		{
 			echo $twig->render($this->_default_template.$this->_extension, $params);	
 		}
 	}
-
 }
 
 /* End of file Twig.php */
