@@ -222,7 +222,7 @@ Notice that you only need to specify the name of the template (without the exten
 
 There is much more cool stuff that you should check out by visiting the [docs (anytime soon)](#).
 
-# CHANGELOG
+## CHANGELOG ##
 ---
 
 ### 1.1.0 ###
@@ -245,6 +245,6 @@ There is much more cool stuff that you should check out by visiting the [docs (a
 
 [https://github.com/kenjis/codeigniter-ss-twig](https://github.com/kenjis/codeigniter-ss-twig)
 
-## Other Codeigniter authors ##
+## Other Codeigniter developers ##
 
 * [Kenjis](https://github.com/kenjis/)
