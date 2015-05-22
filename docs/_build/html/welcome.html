@@ -1,0 +1,316 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>} &mdash; CI-Twig 1.1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="CI-Twig 1.1.0 documentation" href="#" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="nav-item nav-item-0"><a href="#">CI-Twig 1.1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <p># Codeigniter Twig #
+&#8212;</p>
+<p>[![Latest Stable Version](<a class="reference external" href="https://poser.pugx.org/dsv/ci-twig/v/stable)](https://packagist.org/packages/dsv/ci-twig">https://poser.pugx.org/dsv/ci-twig/v/stable)](https://packagist.org/packages/dsv/ci-twig</a>) [![Total Downloads](<a class="reference external" href="https://poser.pugx.org/dsv/ci-twig/downloads)](https://packagist.org/packages/dsv/ci-twig">https://poser.pugx.org/dsv/ci-twig/downloads)](https://packagist.org/packages/dsv/ci-twig</a>) [![Latest Unstable Version](<a class="reference external" href="https://poser.pugx.org/dsv/ci-twig/v/unstable)](https://packagist.org/packages/dsv/ci-twig">https://poser.pugx.org/dsv/ci-twig/v/unstable)](https://packagist.org/packages/dsv/ci-twig</a>) [![License](<a class="reference external" href="https://poser.pugx.org/dsv/ci-twig/license)](https://packagist.org/packages/dsv/ci-twig">https://poser.pugx.org/dsv/ci-twig/license)](https://packagist.org/packages/dsv/ci-twig</a>)</p>
+<p>CI-Twig it&#8217;s a simple implementation of Twig/Assetic template engine for CodeIgniter 3.0. It supports theme, layouts, templates for regular apps and also for apps that use HMVC. It&#8217;s gonna make your life easier for developing and maintaining your CodeIgniter applications where theme and structured templates are necessary.</p>
+<p>With CI-Twig you can separately set the theme, layout, template and even the assets for each page. Also this does not replace CodeIgniter&#8217;s default views, so you can still load views as such as: $this-&gt;load-&gt;view().</p>
+<p>## Requirements ##</p>
+<ul class="simple">
+<li>PHP 5.2.4+</li>
+<li>CodeIgniter 3.x</li>
+</ul>
+<p>Notes: Codeigniter 2.x is not supported.</p>
+<p># How to install #
+&#8212;</p>
+<p>## 1. Install it with composer:</p>
+<p><code class="docutils literal"><span class="pre">`</span>
+<span class="pre">composer</span> <span class="pre">require</span> <span class="pre">&quot;dsv/ci-twig&quot;:&quot;^1.0&quot;</span>
+<span class="pre">`</span></code></p>
+<p><strong>Note</strong>: Remember to include the autoload file inside your Codeigniter <cite>application/config/config.php</cite> file.</p>
+<p># How to use it
+&#8212;</p>
+<p>## 1. Load library ##</p>
+<p><code class="docutils literal"><span class="pre">`php</span>
+<span class="pre">$this-&gt;load-&gt;library('ci-twig/twig');</span>
+<span class="pre">`</span></code></p>
+<p>## 2. Set up directory structure</p>
+<p><strong>Create a directory structure:</strong></p>
+<p><code class="docutils literal"><span class="pre">`</span>
+<span class="pre">+-FCPATH/</span>
+<span class="pre">|</span> <span class="pre">+-theme/</span>
+<span class="pre">|</span> <span class="pre">+-assets/</span>
+<span class="pre">|</span> <span class="pre">|</span> <span class="pre">+-css/</span>
+<span class="pre">|</span> <span class="pre">|</span> <span class="pre">+-js/</span>
+<span class="pre">`</span></code></p>
+<p><strong>Notes</strong></p>
+<ul class="simple">
+<li><cite>FCPATH</cite> is Codeigniter&#8217;s principal directory, outside the <cite>application</cite> directory where all your controllers and models are placed.</li>
+<li><cite>CI-Twig</cite> uses <cite>Assetics</cite> for manage the assets used in every theme, so you are gonna need to set the <cite>assets</cite> directory with writable permissions.</li>
+</ul>
+<p><strong>Copy the theme example structure.</strong></p>
+<p>By default CI-Twig uses a <cite>Bootstrap theme</cite>, so that you can create a similar structure in your new theme.</p>
+<ul class="simple">
+<li>Copy the <cite>dist/bootstrap</cite> directory to <cite>theme</cite>.</li>
+</ul>
+<p>You should end up with a structure like this:</p>
+<p><code class="docutils literal"><span class="pre">`</span>
+<span class="pre">+-FCPATH/</span>
+<span class="pre">|</span> <span class="pre">+-application/</span>
+<span class="pre">|</span> <span class="pre">+-system/</span>
+<span class="pre">|</span> <span class="pre">+-theme/</span>
+<span class="pre">|</span> <span class="pre">|</span> <span class="pre">+-bootstrap/</span>
+<span class="pre">|</span> <span class="pre">+-assets/</span>
+<span class="pre">|</span> <span class="pre">|</span> <span class="pre">+-css/</span>
+<span class="pre">|</span> <span class="pre">|</span> <span class="pre">+-js/</span>
+<span class="pre">`</span></code></p>
+<p>## 3. Set a theme and layout</p>
+<p>Bootstrap theme includes a &#8216;container&#8217; layout structure.</p>
+<p><code class="docutils literal"><span class="pre">`php</span>
+<span class="pre">$this-&gt;twig-&gt;set_theme('bootstrap');</span>
+<span class="pre">$this-&gt;twig-&gt;add_layout('container');</span>
+<span class="pre">`</span></code></p>
+<p><strong>Note</strong>: Chaining method also supported.</p>
+<p><code class="docutils literal"><span class="pre">`php</span>
+<span class="pre">$this-&gt;twig-&gt;set_theme('bootstrap')-&gt;add_layout('container');</span>
+<span class="pre">`</span></code></p>
+<p>## 4. Display the theme</p>
+<p><code class="docutils literal"><span class="pre">`php</span>
+<span class="pre">$this-&gt;twig-&gt;render();</span>
+<span class="pre">`</span></code></p>
+<p>A full example using <cite>CI-Twig</cite> in the Welcome Controller:</p>
+<p><a href="#id1"><span class="problematic" id="id2">``</span></a><a href="#id3"><span class="problematic" id="id4">`</span></a>php
+&lt;?php defined(&#8216;BASEPATH&#8217;) OR exit(&#8216;No direct script access allowed&#8217;);</p>
+<p>class Welcome extends CI_Controller
+{</p>
+<blockquote>
+<div><p>public function index()
+{</p>
+<blockquote>
+<div>$this-&gt;load-&gt;library(&#8216;ci-twig/twig&#8217;);
+$this-&gt;twig-&gt;set_theme(&#8216;bootstrap&#8217;)-&gt;add_layout(&#8216;container&#8217;);
+$this-&gt;twig-&gt;render();</div></blockquote>
+<p>}</p>
+</div></blockquote>
+<div class="section" id="id5">
+<h1>}<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h1>
+<p>## 5. What&#8217;s next? ##</p>
+<p>In the example above we only displayed the default template and layout. You can add views to this layout using <code class="docutils literal"><span class="pre">`$this-&gt;twig-&gt;add_view($view,$params)```command.</span> <span class="pre">It's</span> <span class="pre">exactly</span> <span class="pre">like</span> <span class="pre">the</span> <span class="pre">Codeigniter's</span> <span class="pre">method</span> <span class="pre">```$this-&gt;load-&gt;view($view,$params)`</span></code> used for loading views.</p>
+<p>CI-Twig View&#8217;s are using the layout created in the theme, so there is no need to load the same structure files every time a method is called, only the view you gonna need.</p>
+<p><a href="#id6"><span class="problematic" id="id7">``</span></a><a href="#id8"><span class="problematic" id="id9">`</span></a>php
+&lt;?php defined(&#8216;BASEPATH&#8217;) OR exit(&#8216;No direct script access allowed&#8217;);</p>
+<p>class Welcome extends CI_Controller
+{</p>
+<blockquote>
+<div><p>public function index()
+{</p>
+<blockquote>
+<div>$this-&gt;load-&gt;library(&#8216;ci-twig/twig&#8217;);
+$this-&gt;twig-&gt;set_theme(&#8216;bootstrap&#8217;)-&gt;add_layout(&#8216;container&#8217;);
+$this-&gt;twig-&gt;add_view(&#8216;welcome_message&#8217;)-&gt;render();</div></blockquote>
+<p>}</p>
+</div></blockquote>
+</div>
+<div class="section" id="id10">
+<h1>}<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h1>
+<p><strong>Note</strong>: before you can add a view inside the &#8216;index&#8217; method you gonna need a directory structure inside your <cite>views</cite> folder:</p>
+<p><code class="docutils literal"><span class="pre">`</span>
+<span class="pre">+-views/</span>
+<span class="pre">|</span> <span class="pre">+-welcome/</span>
+<span class="pre">|</span> <span class="pre">|</span> <span class="pre">+-index/</span>
+<span class="pre">|</span> <span class="pre">|</span> <span class="pre">|</span> <span class="pre">+-welcome_message.php</span>
+<span class="pre">`</span></code></p>
+<p>And there you go, you can add many views as you want before the render method occurs.</p>
+<p># Create a new Theme
+&#8212;</p>
+<p>Obviously, you can create as many layouts and theme you want, follow me in every step for doing this.</p>
+<p>## 1. Create the directory</p>
+<p>Create a new directory structure inside the <cite>theme</cite> folder:</p>
+<p><code class="docutils literal"><span class="pre">`</span>
+<span class="pre">+-FCPATH/</span>
+<span class="pre">|</span> <span class="pre">+-theme/</span>
+<span class="pre">|</span> <span class="pre">|</span> <span class="pre">+-new_theme/</span>
+<span class="pre">|</span> <span class="pre">|</span> <span class="pre">|</span> <span class="pre">+-assets</span> <span class="pre">(all</span> <span class="pre">your</span> <span class="pre">theme</span> <span class="pre">asset</span> <span class="pre">files</span> <span class="pre">needed)</span>
+<span class="pre">|</span> <span class="pre">|</span> <span class="pre">|</span> <span class="pre">|</span> <span class="pre">+-</span> <span class="pre">css/</span>
+<span class="pre">|</span> <span class="pre">|</span> <span class="pre">|</span> <span class="pre">|</span> <span class="pre">+-</span> <span class="pre">js/</span>
+<span class="pre">|</span> <span class="pre">|</span> <span class="pre">|</span> <span class="pre">+-layout</span>
+<span class="pre">|</span> <span class="pre">|</span> <span class="pre">|</span> <span class="pre">|</span> <span class="pre">+-new_layout.twig</span>
+<span class="pre">|</span> <span class="pre">|</span> <span class="pre">|</span> <span class="pre">+-</span> <span class="pre">theme.twig</span>
+<span class="pre">`</span></code></p>
+<p>## 2. Create a theme file</p>
+<p>You are gonna need to create a new <cite>theme.twig</cite> file structure, this is the default template used in every <cite>CI-Twig</cite> theme instance:</p>
+<p><a href="#id11"><span class="problematic" id="id12">``</span></a>`
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>&lt;head&gt;</dt>
+<dd><dl class="first docutils">
+<dt>{% block head %}</dt>
+<dd>&lt;title&gt;{% block title %}{% endblock %} - {{system_fullname|title}}&lt;/title&gt;</dd>
+</dl>
+<p>{% endblock %}
+{% stylesheets &#8216;css/<a href="#id13"><span class="problematic" id="id14">*</span></a>&#8216; <a class="reference external" href="mailto:'&#37;&#52;&#48;module_css">'<span>&#64;</span>module_css</a>&#8216; filter=&#8217;cssrewrite&#8217; %}</p>
+<blockquote>
+<div>&lt;link href=&#8221;{{ base_url(&#8216;assets/&#8217; ~ asset_url) }}&#8221; type=&#8221;text/css&#8221; rel=&#8221;stylesheet&#8221; /&gt;</div></blockquote>
+<p class="last">{% endstylesheets %}</p>
+</dd>
+</dl>
+<p>&lt;/head&gt;
+&lt;body&gt;</p>
+<blockquote>
+<div>{% block content %}{% endblock %}</div></blockquote>
+<p>&lt;div id=&#8221;footer&#8221;&gt;{% block footer %}{% endblock %}&lt;/div&gt;
+{% javascripts &#8216;js/<a href="#id15"><span class="problematic" id="id16">*</span></a>&#8216; <a class="reference external" href="mailto:'&#37;&#52;&#48;module_js">'<span>&#64;</span>module_js</a>&#8216; %}</p>
+<blockquote>
+<div>&lt;script src=&#8221;{{ base_url(&#8216;assets/&#8217; ~ asset_url) }}&#8221;&gt;&lt;/script&gt;</div></blockquote>
+<p>{% endjavascripts %}
+&lt;/body&gt;</p>
+</div></blockquote>
+<p>&lt;/html&gt;
+<a href="#id17"><span class="problematic" id="id18">``</span></a><a href="#id19"><span class="problematic" id="id20">`</span></a></p>
+<p>## 3. Create the layout</p>
+<p>Same as <cite>theme.twig</cite>, the <cite>layouts/new_layout.twig</cite> default template:</p>
+<p><a href="#id21"><span class="problematic" id="id22">``</span></a><a href="#id23"><span class="problematic" id="id24">`</span></a>php
+{% extends &#8220;theme.twig&#8221; %}
+{% block title %}{{&#8216;new_layout&#8217;<a href="#id25"><span class="problematic" id="id26">|</span></a>capitalize}}{% endblock %}</p>
+<dl class="docutils">
+<dt>{% block content %}</dt>
+<dd><dl class="first docutils">
+<dt>{% for view,params in views %}</dt>
+<dd>{% include view with params %}</dd>
+</dl>
+<p class="last">{% endfor %}</p>
+</dd>
+</dl>
+<p>{% endblock %}
+<a href="#id27"><span class="problematic" id="id28">``</span></a><a href="#id29"><span class="problematic" id="id30">`</span></a></p>
+<p># 4. Load theme layout and views</p>
+<p>Set the new theme and structure, add the views and load it before sending the output to the browser.</p>
+<p><a href="#id31"><span class="problematic" id="id32">``</span></a><a href="#id33"><span class="problematic" id="id34">`</span></a>php
+&lt;?php defined(&#8216;BASEPATH&#8217;) OR exit(&#8216;No direct script access allowed&#8217;);</p>
+<p>class Welcome extends CI_Controller
+{</p>
+<blockquote>
+<div><p>public function index()
+{</p>
+<blockquote>
+<div>$this-&gt;load-&gt;library(&#8216;ci-twig/twig&#8217;);
+$this-&gt;twig-&gt;set_theme(&#8216;bootstrap&#8217;)-&gt;add_layout(&#8216;container&#8217;);
+$this-&gt;twig-&gt;add_view(&#8216;welcome_message&#8217;)-&gt;render();</div></blockquote>
+<p>}</p>
+</div></blockquote>
+</div>
+<div class="section" id="id35">
+<h1>}<a class="headerlink" href="#id35" title="Permalink to this headline">¶</a></h1>
+<p>Notice that you only need to specify the name of the template (without the extension <cite>*.twig</cite>).</p>
+<p>There is much more cool stuff that you should check out by visiting the [docs (anytime soon)](#).</p>
+<p># CHANGELOG
+&#8212;</p>
+<p>### 1.1.0 ###</p>
+<ul class="simple">
+<li>Document all the principal class (finally)</li>
+<li>Fix some bugs with CI global paths</li>
+</ul>
+<p>### 1.0.7 ###</p>
+<ul class="simple">
+<li>Include global assets</li>
+<li>Catch Assetic RunTimeExceptions in Writter</li>
+</ul>
+<p>### 1.0.4 ###</p>
+<ul class="simple">
+<li>Fix bugs in HMVC Mode add_path</li>
+<li>Catch add_path errors</li>
+<li>Autoload url codeigniter helper (used as default)</li>
+</ul>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="#">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">}</a></li>
+<li><a class="reference internal" href="#id10">}</a></li>
+<li><a class="reference internal" href="#id35">}</a></li>
+</ul>
+
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/welcome.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2015, David Sosa Valdes.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.4</a>
+      
+      |
+      <a href="_sources/welcome.txt"
+          rel="nofollow">Page source</a></li>
+    </div>
+
+    
+
+    
+  </body>
+</html>
