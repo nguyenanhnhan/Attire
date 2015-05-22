@@ -239,4 +239,12 @@ There is much more cool stuff that you should check out by visiting the [docs (a
 
 * Fix bugs in HMVC Mode add_path
 * Catch add_path errors
-* Autoload url codeigniter helper (used as default) 
+* Autoload url codeigniter helper (used as default)
+
+## Other Twig Implementations for Codeigniter ##
+
+[https://github.com/kenjis/codeigniter-ss-twig](https://github.com/kenjis/codeigniter-ss-twig)
+
+## Other Codeigniter authors ##
+
+* [Kenjis](https://github.com/kenjis/)
