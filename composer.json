@@ -23,6 +23,9 @@
             "email": "david.sosa.valdes@gmail.com"
         }
     ],
+    "support":{
+        "issues": "https://gitlab.com/david-sosa-valdes/ci-twig/issues"
+    },
     "extra": {
         "branch-alias": {
             "dev-master": "1.1.x-dev"
