@@ -31,7 +31,7 @@ composer require "dsv/ci-twig":"^1.0"
 
 ## 1. Load library ##
 
-```
+```php
 $this->load->library('ci-twig/twig'); 
 ``` 
 
@@ -75,26 +75,26 @@ You should end up with a structure like this:
 
 Bootstrap theme includes a 'container' layout structure. 
 
-```
+```php
 $this->twig->set_theme('bootstrap');
 $this->twig->add_layout('container');
 ```
 
 **Note**: Chaining method also supported.
 
-```
+```php
 $this->twig->set_theme('bootstrap')->add_layout('container');
 ```
 
 ## 4. Display the theme
 
-```
+```php
 $this->twig->render();
 ```
 
 A full example using `CI-Twig` in the Welcome Controller:
 
-```
+```php
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Welcome extends CI_Controller 
@@ -114,7 +114,7 @@ In the example above we only displayed the default template and layout. You can 
 
 CI-Twig View's are using the layout created in the theme, so there is no need to load the same structure files every time a method is called, only the view you gonna need. 
 
-```
+```php
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Welcome extends CI_Controller 
@@ -189,9 +189,9 @@ You are gonna need to create a new `theme.twig` file structure, this is the defa
 
 Same as `theme.twig`, the `layouts/new_layout.twig` default template: 
 
-```
+```php
 {% extends "theme.twig" %}
-{% block title %}{{'new layout'|capitalize}}{% endblock %}
+{% block title %}{{'new_layout'|capitalize}}{% endblock %}
 
 {% block content %}
 	{% for view,params in views %}
@@ -204,7 +204,7 @@ Same as `theme.twig`, the `layouts/new_layout.twig` default template:
 
 Set the new theme and structure, add the views and load it before sending the output to the browser.
 
-```
+```php
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Welcome extends CI_Controller 
@@ -224,6 +224,11 @@ There is much more cool stuff that you should check out by visiting the [docs (a
 
 # CHANGELOG
 ---
+
+### 1.1.0 ###
+
+* Document all the principal class (finally)
+* Fix some bugs with CI global paths
 
 ### 1.0.7 ###
 
