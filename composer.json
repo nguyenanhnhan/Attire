@@ -16,11 +16,11 @@
         "twig/twig": "^1.18",
         "kriswallsmith/assetic": "^1.2"
     }, 
+    "homepage": "https://bitbucket.org/davidsosavaldes/ci-twig",
     "authors": [
         {
             "name": "David Sosa Valdes",
-            "email": "david.sosa.valdes@gmail.com",
-            "homepage": "https://bitbucket.org/davidsosavaldes/ci-twig"
+            "email": "david.sosa.valdes@gmail.com"
         }
     ],
     "extra": {
