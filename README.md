@@ -225,9 +225,10 @@ There is much more cool stuff that you should check out by visiting the [docs (a
 # CHANGELOG
 ---
 
-### 1.0.5 ###
+### 1.0.7 ###
 
 * Include global assets
+* Catch Assetic RunTimeExceptions in Writter
 
 ### 1.0.4 ###
 
