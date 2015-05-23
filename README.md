@@ -18,7 +18,7 @@ With CI-Twig you can separately set the theme, layout and even the assets for ea
 # How to install #
 ---
 
-## 1. Install it with composer:
+## With composer:
 
 ```
 composer require "dsv/ci-twig":"^1.1"
