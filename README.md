@@ -4,16 +4,16 @@
 [![Latest Stable Version](https://poser.pugx.org/dsv/ci-twig/v/stable)](https://packagist.org/packages/dsv/ci-twig) [![Total Downloads](https://poser.pugx.org/dsv/ci-twig/downloads)](https://packagist.org/packages/dsv/ci-twig) [![Latest Unstable Version](https://poser.pugx.org/dsv/ci-twig/v/unstable)](https://packagist.org/packages/dsv/ci-twig) [![License](https://poser.pugx.org/dsv/ci-twig/license)](https://packagist.org/packages/dsv/ci-twig)
 
 
-CI-Twig it's a simple implementation of Twig/Assetic template engine for CodeIgniter 3.0. It supports theme, layouts, templates for regular apps and also for apps that use HMVC. It's gonna make your life easier for developing and maintaining your CodeIgniter applications where theme and structured templates are necessary.
+CI-Twig it's an implementation of Twig/Assetic template engine for CodeIgniter 3.0. It supports theme instances, layouts, functions, filters and lexers for regular apps and also for apps that use HMVC. It's gonna make your life easier for developing and maintaining your CodeIgniter applications where structured templates are necessary.
 
-With CI-Twig you can separately set the theme, layout, template and even the assets for each page. Also this does not replace CodeIgniter's default views, so you can still load views as such as: $this->load->view().
+With CI-Twig you can separately set the theme, layout and even the assets for each page. Also this does not replace CodeIgniter's default views, so you can still load views as such as: $this->load->view().
 
 ## Requirements ##
 
 * PHP 5.2.4+
 * CodeIgniter 3.x 
 
-Notes: Codeigniter 2.x is not supported.
+**Note**: Codeigniter 2.x is not supported.
 
 # How to install #
 ---
@@ -21,15 +21,15 @@ Notes: Codeigniter 2.x is not supported.
 ## 1. Install it with composer:
 
 ```
-composer require "dsv/ci-twig":"^1.0"
+composer require "dsv/ci-twig":"^1.1"
 ```
 
-**Note**: Remember to include the autoload file inside your Codeigniter `application/config/config.php` file.
+**Note**: Remember to config the composer autoload file inside your Codeigniter `application/config/config.php` file.
 
 # How to use it
 ---
 
-## 1. Load library ##
+## 1. Load the library ##
 
 ```php
 $this->load->library('ci-twig/twig'); 
@@ -47,16 +47,14 @@ $this->load->library('ci-twig/twig');
 | | +-js/
 ```
 
-**Notes** 
+**Notes**: 
 
 * `FCPATH` is Codeigniter's principal directory, outside the `application` directory where all your controllers and models are placed.
 * `CI-Twig` uses `Assetics` for manage the assets used in every theme, so you are gonna need to set the `assets` directory with writable permissions.
 
 **Copy the theme example structure.**
 
-By default CI-Twig uses a `Bootstrap theme`, so that you can create a similar structure in your new theme. 
-
-* Copy the `dist/bootstrap` directory to `theme`.
+By default CI-Twig uses a `Bootstrap` instance. Copy the `dist/bootstrap` directory to `theme`.
 
 You should end up with a structure like this:
 
@@ -110,9 +108,17 @@ class Welcome extends CI_Controller
 
 ## 5. What's next? ##
 
-In the example above we only displayed the default template and layout. You can add views to this layout using ```$this->twig->add_view($view,$params)```command. It's exactly like the Codeigniter's method ```$this->load->view($view,$params)``` used for loading views.
+In the example above we only displayed the default template and layout. You can add views to this layout using the command: 
+```php
+$this->twig->add_view($view,$params)
+```
+It's exactly like the Codeigniter's method: 
 
-CI-Twig View's are using the layout created in the theme, so there is no need to load the same structure files every time a method is called, only the view you gonna need. 
+```php
+$this->load->view($view,$params)
+```
+
+You don't need to create the same template structure every time a method is called (header, sidebar, breadcrumbs, container, footer, etc), only add the view's you're gonna need in a controller's method. 
 
 ```php
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
@@ -128,7 +134,7 @@ class Welcome extends CI_Controller
 }
 ```
 
-**Note**: before you can add a view inside the 'index' method you gonna need a directory structure inside your `views` folder:
+**Note**: before you can add a view inside the 'index' method you're gonna need a directory structure inside your `views` folder:
 
 ```
 +-views/
@@ -137,7 +143,46 @@ class Welcome extends CI_Controller
 | | | +-welcome_message.php
 ```
 
-And there you go, you can add many views as you want before the render method occurs.
+Or call it inside the constructor.
+
+```php
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
+
+class Welcome extends CI_Controller 
+{
+    public function __construct()
+    {
+        parent::__construct();
+		$this->load->library('ci-twig/twig');
+		$this->twig->set_theme('bootstrap')->add_layout('container');
+    }
+
+	public function index()
+	{	
+		$this->twig->add_view('foo')->render();	
+	}
+	
+	public function other()
+	{
+	    # because foo bar is too mainstream
+	    $this->twig->add_view('fighters')->render();
+	}
+}
+
+```
+
+Here's the folder structure for this example.
+
+```
++-views/
+| +-welcome/
+| | +-index/
+| | | +-foo.php
+| | +-other
+| | | +-fighters.php
+```
+
+And there you go, you can add many views as you want before the render method call.
 
 # Create a new Theme 
 ---
@@ -171,16 +216,22 @@ You are gonna need to create a new `theme.twig` file structure, this is the defa
 		{% block head %}
 			<title>{% block title %}{% endblock %} - {{system_fullname|title}}</title>
 		{% endblock %}
-		{% stylesheets 'css/*' '@module_css' filter='cssrewrite' %}
-		    <link href="{{ base_url('assets/' ~ asset_url) }}" type="text/css" rel="stylesheet" />
-		{% endstylesheets %}				
+		{% block stylesheets %}
+			{% stylesheets 'css/*' '@global_css' '@module_css' filter='cssrewrite' %}
+				<link href="{{ base_url('assets/' ~ asset_url) }}" type="text/css" rel="stylesheet" />
+			{% endstylesheets %}		
+		{% endblock %}
 	</head>
-	<body>
+	<body class="{{skin_color}}">
 		{% block content %}{% endblock %}
-        <div id="footer">{% block footer %}{% endblock %}</div>
-    	{% javascripts 'js/*' '@module_js' %}
-        	<script src="{{ base_url('assets/' ~ asset_url) }}"></script>
-    	{% endjavascripts %}	
+		<div id="footer">
+			{% block footer %}{% endblock %}
+		</div>
+		{% block javascripts %}
+			{% javascripts 'js/*' '@global_js' '@module_js' %}
+				<script src="{{ base_url('assets/' ~ asset_url) }}"></script>
+			{% endjavascripts %}
+		{% endblock %}
 	</body>
 </html>
 ```
@@ -212,13 +263,13 @@ class Welcome extends CI_Controller
 	public function index()
 	{	
 		$this->load->library('ci-twig/twig');
-		$this->twig->set_theme('bootstrap')->add_layout('container');
+		$this->twig->set_theme('new_theme')->add_layout('new_layout');
 		$this->twig->add_view('welcome_message')->render();	
 	}
 }
 ```
 
-Notice that you only need to specify the name of the template (without the extension `*.twig`).
+**Note**: Notice that you only need to specify the name of the template (without the extension `*.twig`).
 
 There is much more cool stuff that you should check out by visiting the [docs (anytime soon)](#).
 
@@ -245,6 +296,8 @@ There is much more cool stuff that you should check out by visiting the [docs (a
 
 [https://github.com/kenjis/codeigniter-ss-twig](https://github.com/kenjis/codeigniter-ss-twig)
 
-## Other Codeigniter developers ##
+## Codeigniter developers ##
+
+This is a list of people you need to check on what they are working.
 
 * [Kenjis](https://github.com/kenjis/)
