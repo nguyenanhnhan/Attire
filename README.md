@@ -296,8 +296,3 @@ There is much more cool stuff that you should check out by visiting the [docs (a
 
 [https://github.com/kenjis/codeigniter-ss-twig](https://github.com/kenjis/codeigniter-ss-twig)
 
-## Codeigniter developers ##
-
-This is a list of people you need to check on what they are working.
-
-* [Kenjis](https://github.com/kenjis/)
