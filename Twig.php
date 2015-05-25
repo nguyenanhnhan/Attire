@@ -676,28 +676,29 @@ class Twig
 	 */
 	private function _set_ci_functions()
 	{
-		if (function_exists('base_url')) 
-		{
-			$this->add_function('base_url', function($path){
-				return base_url($path);
-			});
-		}
-		if (function_exists('site_url')) {
-			$this->add_function('site_url',function($path){
-				return site_url($path);
-			});
-		}
-		if (function_exists('form_open')) 
-		{
-			$this->add_function('form_open',function($url, $params = array()){
-				return form_open($url, $params);
-			});
-		}
-		if (function_exists('form_close')) 
-		{
-			$this->add_function('form_close',function(){
+		$functions = array(
+			'base_url' => function($path){ 
+				return base_url($path); 
+			},
+			'site_url' => function($path){ 
+				return site_url($path); 
+			},
+			'form_open' => function($path, $params = array()){ 
+				return form_open($path, $params); 
+			},
+			'form_open_multipart' => function($path, $params = array()){
+				return form_open_multipart($path,$params);
+			},
+			'form_close' => function(){
 				return form_close();
-			});
+			}
+		);
+		foreach ($functions as $name => $function) 
+		{
+			if (function_exists($name)) 
+			{
+				$this->add_function($name,$function);
+			}
 		}
 	}
 
