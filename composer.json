@@ -1,6 +1,6 @@
 {
     "name": "dsv/ci-twig",
-    "description": "CI-Twig it's a simple implementation of Twig/Assetic template engine for CodeIgniter 3.0. It supports theme, layouts, templates for regular apps and also for apps that use HMVC.",
+    "description": "CI-Twig it's an implementation of Twig/Assetic template engine for CodeIgniter 3.0. It supports theme instances, layouts, functions, filters and lexers for regular apps and also for apps that use HMVC",
     "type": "codeigniter-library",
      "keywords": [
         "twig",
