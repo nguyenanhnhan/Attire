@@ -196,15 +196,11 @@ class Twig
         $this->_hmvc = New StdClass();
         $this->_hmvc->method = $this->_ci->router->fetch_method();
         
-        if ($modules_locations = config_item('modules_locations')) 
+        if ($modules_locations = config_item('modules_path')) 
         {
-        	list($this->_hmvc->path) = array_keys($modules_locations);
-        	if (! method_exists($this->_ci->router, 'fetch_module')) 
+        	if (($this->_hmvc->module = $this->_ci->router->fetch_class()) !== NULL) 
         	{
-        		throw new Exception("HMVC Module is not installed.");
-        	}
-        	if ($this->_hmvc->module = $this->_ci->router->fetch_module()) 
-        	{
+        		$this->_hmvc->path = $modules_locations.$this->_hmvc->module;
         		return;
         	}
         }
@@ -224,24 +220,15 @@ class Twig
 	{
 		foreach ($this->_directories as $key => $directory) 
 		{
-			$directory = rtrim($directory,'/');
-			
-			if ($this->_hmvc->module === NULL) 
+			$directory = rtrim($directory,'/');			
+			if ($directory == 'modules') 
 			{
-				if ($directory == 'modules') 
-				{
-					$path = FCPATH;
-				}
-				else
-				{
-					$path = FCPATH . $directory . '/';
-				}
+				$path = config_item('modules_path');
 			}
 			else
 			{
 				$path = FCPATH . $directory . '/';
 			}
-			
 			if (! file_exists($path)) 
 			{
 				throw new Exception("Directory {$path} currently not exist.");
@@ -447,7 +434,7 @@ class Twig
 			}
 			if (!file_exists($path)) 
 			{
-				throw new Exception("{$path} is not currently exist.");
+				throw new Exception("{$path} not currently exist.");
 			}
 		} catch (Exception $e) {
 			$this->_show_error($e->getMessage());
