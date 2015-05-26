@@ -198,8 +198,9 @@ class Twig
         
         if ($modules_locations = config_item('modules_path')) 
         {
-        	if (($this->_hmvc->module = $this->_ci->router->fetch_class()) !== NULL) 
+        	if (defined('MODCLASS')) 
         	{
+        		$this->_hmvc->module = $this->_ci->router->fetch_class();
         		$this->_hmvc->path = $modules_locations.$this->_hmvc->module;
         		return;
         	}
