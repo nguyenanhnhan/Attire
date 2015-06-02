@@ -53,17 +53,10 @@ composer require "dsv/ci-twig":"^1.1"
 
 By default CI-Twig uses a `Bootstrap` instance. Copy the `dist/bootstrap` directory to `theme`.
 
-You should end up with a structure like this:
-
 ```
-+-FCPATH/
 | +-application/
 | | +-theme/
 | | | +-bootstrap/
-| +-system/
-| +-assets/
-| | +-css/
-| | +-js/
 ```
 ## 1. Load the library ##
 
