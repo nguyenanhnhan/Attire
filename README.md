@@ -278,7 +278,7 @@ There is much more cool stuff that you should check out by visiting the [docs (a
 
 ### 1.1.3
 
-* Update the installation paths (even if you are in a secured installation environment)
+* Update installation paths (even if you are in a safe installation)
 
 ### 1.1.0 ###
 
