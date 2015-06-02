@@ -29,28 +29,25 @@ composer require "dsv/ci-twig":"^1.1"
 # How to use it
 ---
 
-## 1. Load the library ##
-
-```php
-$this->load->library('ci-twig/twig'); 
-``` 
-
-## 2. Set up directory structure
+## 1. Set up directory structure
 
 **Create a directory structure:**
 
 ```
-+-FCPATH/
++-APPPATH/
 | +-theme/
++-FCPATH 
+| +-index.php
 | +-assets/
 | | +-css/
 | | +-js/
 ```
-
 **Notes**: 
 
-* `FCPATH` is Codeigniter's principal directory, outside the `application` directory where all your controllers and models are placed.
+* `APPPATH` is Codeigniter's principal directory, where all your controllers, models and views are placed.
+* `FCPATH` is Codeigniter's secured installation directory, where your ```index.php``` file is placed (normally outside the ```application``` directory).
 * `CI-Twig` uses `Assetics` for manage the assets used in every theme, so you are gonna need to set the `assets` directory with writable permissions.
+* You don't need to worry if you don't understand what's going on here, CI-Twig will show an error for every installation path and also how to fix it.
 
 **Copy the theme example structure.**
 
@@ -61,13 +58,20 @@ You should end up with a structure like this:
 ```
 +-FCPATH/
 | +-application/
+| | +-theme/
+| | | +-bootstrap/
 | +-system/
-| +-theme/
-| | +-bootstrap/
 | +-assets/
 | | +-css/
 | | +-js/
 ```
+## 1. Load the library ##
+
+Move to your controller and load the library.
+
+```php
+$this->load->library('ci-twig/twig'); 
+``` 
 
 ## 3. Set a theme and layout 
 
@@ -194,15 +198,14 @@ Obviously, you can create as many layouts and theme you want, follow me in every
 Create a new directory structure inside the `theme` folder:
 
 ```
-+-FCPATH/
-| +-theme/
-| | +-new_theme/
-| | | +-assets (all your theme asset files needed)
-| | | | +- css/ 
-| | | | +- js/
-| | | +-layout
-| | | | +-new_layout.twig
-| | | +- theme.twig
++-theme/
+| +-new_theme/
+| | +-assets (all your theme asset files needed)
+| | | +- css/* 
+| | | +- js/*
+| | +-layout
+| | | +-new_layout.twig
+| | +- theme.twig
 ```
 
 ## 2. Create a theme file
@@ -236,6 +239,8 @@ You are gonna need to create a new `theme.twig` file structure, this is the defa
 </html>
 ```
 
+Use it as a basic template and create something unique.
+
 ## 3. Create the layout
 
 Same as `theme.twig`, the `layouts/new_layout.twig` default template: 
@@ -250,6 +255,8 @@ Same as `theme.twig`, the `layouts/new_layout.twig` default template:
 	{% endfor %}
 {% endblock %}
 ```
+
+Anything can be a layout, check the [twig extends docs](http://twig.sensiolabs.org/doc/tags/extends.html).
 
 # 4. Load theme layout and views
 
@@ -269,7 +276,9 @@ class Welcome extends CI_Controller
 }
 ```
 
-**Note**: Notice that you only need to specify the name of the template (without the extension `*.twig`).
+**Notes**: 
+
+* Notice that you only need to specify the name of the template (without the extension `*.twig`).
 
 There is much more cool stuff that you should check out by visiting the [docs (anytime soon)](#).
 
