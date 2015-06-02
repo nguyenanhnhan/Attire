@@ -181,8 +181,13 @@ class Twig
 			},
 			'CI::config_item' => function($item = ""){
 				return config_item($item);
+			},
+			'CI::load_helper' => function($name = ""){
+				$this->_ci->load->helper($name);
+				return;
 			}
         );
+        
 	}
 
 	/**
@@ -221,14 +226,17 @@ class Twig
 	{
 		foreach ($this->_directories as $key => $directory) 
 		{
-			$directory = rtrim($directory,'/');			
-			if ($directory == 'modules') 
+			switch ($directory = rtrim($directory,'/')) 
 			{
-				$path = config_item('modules_path');
-			}
-			else
-			{
-				$path = FCPATH . $directory . '/';
+				case 'modules':
+					$path = config_item('modules_path');
+					break;
+				case 'theme':
+					$path = APPPATH . $directory . '/';
+					break;
+				default:
+					$path = FCPATH . $directory . '/';
+					break;
 			}
 			if (! file_exists($path)) 
 			{
@@ -329,7 +337,7 @@ class Twig
 				$directory = $this->_paths['theme'].$value;
 				$this->_loader = new Twig_Loader_Filesystem($directory);
 				
-				$params['debug']       = $this->_debug;
+				$params['debug'] = $this->_debug;
 
 				# Currently not working
 				# 
@@ -426,7 +434,7 @@ class Twig
 	public function add_path($path = "", $space_name = "", $prepend = FALSE, $need_abs_path = TRUE)
 	{
 		$path = rtrim($path, '/').'/';
-		$absolute_path = ($need_abs_path)? FCPATH."../{$path}": $path;
+		$absolute_path = str_replace("//", "/", ($need_abs_path)? realpath(APPPATH."../../{$path}"): $path);
 		
 		try {
 			if (!is_a($this->_loader, 'Twig_Loader_Filesystem')) 
