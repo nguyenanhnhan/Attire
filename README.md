@@ -276,6 +276,10 @@ There is much more cool stuff that you should check out by visiting the [docs (a
 ## CHANGELOG ##
 ---
 
+### 1.1.3
+
+* Update the installation paths (even if you are in a secured installation environment)
+
 ### 1.1.0 ###
 
 * Document all the principal class (finally)
@@ -295,4 +299,3 @@ There is much more cool stuff that you should check out by visiting the [docs (a
 ## Other Twig Implementations for Codeigniter ##
 
 [https://github.com/kenjis/codeigniter-ss-twig](https://github.com/kenjis/codeigniter-ss-twig)
-
