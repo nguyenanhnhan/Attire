@@ -230,6 +230,7 @@ class Twig
 			{
 				case 'modules':
 					$path = config_item('modules_path');
+					$path == NULL && $path = '';
 					break;
 				case 'theme':
 					$path = APPPATH . $directory . '/';
@@ -238,7 +239,7 @@ class Twig
 					$path = FCPATH . $directory . '/';
 					break;
 			}
-			if (! file_exists($path)) 
+			if ($path === NULL && (!file_exists($path))) 
 			{
 				throw new Exception("Directory {$path} currently not exist.");
 			}
