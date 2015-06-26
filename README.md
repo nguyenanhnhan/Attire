@@ -278,7 +278,7 @@ There is much more cool stuff that you should check out by visiting the [docs (a
 ## CHANGELOG ##
 ---
 
-### 1.1.6
+### 1.1.5 (zheselevko)
 
 * Fix the hmvc directory paths bugs
 
