@@ -278,6 +278,10 @@ There is much more cool stuff that you should check out by visiting the [docs (a
 ## CHANGELOG ##
 ---
 
+### 1.1.6
+
+* Fix the hmvc directory paths bugs
+
 ### 1.1.3
 
 * Update installation paths (even if you are in a safe installation)
