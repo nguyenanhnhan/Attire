@@ -432,11 +432,10 @@ class Twig
 	 * @param boolean $prepend    Prepend method mode
 	 * @return void 
 	 */
-	public function add_path($path = "", $space_name = "", $prepend = FALSE, $need_abs_path = TRUE)
+	public function add_path($path = "", $space_name = "", $prepend = FALSE)
 	{
 		$path = rtrim($path, '/').'/';
-		$absolute_path = str_replace("//", "/", ($need_abs_path)? realpath(APPPATH."../../{$path}"): $path);
-		
+		$absolute_path = str_replace("//", "/", realpath($path));
 		try {
 			if (!is_a($this->_loader, 'Twig_Loader_Filesystem')) 
 			{
@@ -607,7 +606,14 @@ class Twig
 		} catch (Exception $e) {
 			$this->_show_error($e->getMessage());
 		}
-		$path = "@module/{$this->_hmvc->method}/{$view}{$extension}";
+		if (strpos($view, '/') !== FALSE) 
+		{
+			$path = "{$view}{$extension}";
+		}
+		else
+		{
+			$path = "@module/{$this->_hmvc->method}/{$view}{$extension}";
+		}
 		$this->_views[$path] = (array) $params;
 		return $this;
 	}
