@@ -140,7 +140,19 @@ class Welcome extends CI_Controller
 | | | +-welcome_message.php
 ```
 
-Or call it inside the constructor.
+Here's the folder structure for this example.
+
+```
++-application
+| +-views/
+| | +-welcome/
+| | | +-index/
+| | | | +-foo.php
+| | | +-other
+| | | | +-fighters.php
+```
+
+Or you can specify your view path and add views in Twig style:
 
 ```php
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
@@ -155,28 +167,19 @@ class Welcome extends CI_Controller
     }
 
 	public function index()
-	{	
-		$this->twig->add_view('foo')->render();	
-	}
-	
-	public function other()
 	{
-	    # because foo bar is too mainstream
-	    $this->twig->add_view('fighters')->render();
+	    $this->twig->add_path(APPPATH.'views','some');
+		$this->twig->add_view('@some/foo')->render();	
 	}
 }
-
 ```
 
 Here's the folder structure for this example.
 
 ```
-+-views/
-| +-welcome/
-| | +-index/
-| | | +-foo.php
-| | +-other
-| | | +-fighters.php
++-application
+| +-views/
+| | +-foo.php
 ```
 
 And there you go, you can add many views as you want before the render method call.
