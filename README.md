@@ -58,7 +58,7 @@ By default CI-Twig uses a `Bootstrap` instance. Copy the `dist/bootstrap` direct
 | | +-theme/
 | | | +-bootstrap/
 ```
-## 1. Load the library ##
+## 2. Load the library ##
 
 Move to your controller and load the library.
 
