@@ -276,7 +276,7 @@ class Welcome extends CI_Controller
 
 * Notice that you only need to specify the name of the template (without the extension `*.twig`).
 
-There is much more cool stuff that you should check out by visiting the [docs (anytime soon)](#).
+There is much more cool stuff that you should check out by visiting the [docs](http://codeigniter-twig.readthedocs.org/en/latest).
 
 ## CHANGELOG ##
 ---
