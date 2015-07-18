@@ -7,7 +7,7 @@
 
 CI-Twig it's an implementation of Twig/Assetic template engine for CodeIgniter 3.0. It supports theme instances, layouts, functions, filters and lexers for regular apps and also for apps that use HMVC. It's gonna make your life easier for developing and maintaining your CodeIgniter applications where structured templates are necessary.
 
-With CI-Twig you can separately set the theme, layout and even the assets for each page. Also this does not replace CodeIgniter's default views, so you can still load views as such as: $this->load->view().
+With CI-Twig you can separately set the theme, layout and even the assets for each page. Also this does not replace CodeIgniter's default views, so you can still load views as such as: ```$this->load->view()```.
 
 ## Requirements ##
 
