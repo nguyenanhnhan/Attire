@@ -9,14 +9,14 @@ Obviously, you can create as many layouts and theme you want, follow me in every
 Create a new directory structure inside the `theme` folder:
 
 ```
-	+-theme/
-	| +-new_theme/
-	| | +-assets (all your theme asset files needed)
-	| | | +- css/* 
-	| | | +- js/*
-	| | +-layout
-	| | | +-new_layout.twig
-	| | +- theme.twig
++-theme/
+| +-new_theme/
+| | +-assets (all your theme asset files needed)
+| | | +- css/* 
+| | | +- js/*
+| | +-layout
+| | | +-new_layout.twig
+| | +- theme.twig
 ```
 
 ##Create a theme file
