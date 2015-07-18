@@ -15,7 +15,7 @@ With CI-Twig you can separately set the theme, layout and even the assets for ea
 
 **Note**: Codeigniter 2.x is not supported.
 
-There is much more cool stuff that you should check out by visiting the [docs](https://gitlab.com/david-sosa-valdes/ci-twig).
+There is much more cool stuff that you should check out by [visiting the docs](codeigniter-twig.rtfd.org).
 
 ## Other Twig Implementations for Codeigniter ##
 
