@@ -1,0 +1,17 @@
+site_name: CI-Twig
+site_url: http://www.mkdocs.org
+site_description: Project documentation with Markdown.
+site_author: Tom Christie & Dougal Matthews
+
+repo_url: https://github.com/mkdocs/mkdocs/
+
+pages:
+- ['index.md','Home']
+- ['user-guide/writing-themes.md','User Guide','Creating your themes']
+- ['about/release-notes.md','About','Release notes']
+- ['about/contributing.md','About','Contributing']
+- ['about/license.md','About','Licence']
+
+theme: readthedocs
+
+copyright: Copyright &copy; 2015 <a href="https://gitlab.com/david-sosa-valdes">David Sosa Valdes</a>.
