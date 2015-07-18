@@ -17,33 +17,6 @@ With CI-Twig you can separately set the theme, layout and even the assets for ea
 
 There is much more cool stuff that you should check out by visiting the [docs](https://gitlab.com/david-sosa-valdes/ci-twig).
 
-## CHANGELOG ##
----
-
-### 1.1.5 (zheselevko)
-
-* Fix the hmvc directory paths bugs
-
-### 1.1.3
-
-* Update installation paths (even if you are in a safe installation)
-
-### 1.1.0 ###
-
-* Document all the principal class (finally)
-* Fix some bugs with CI global paths
-
-### 1.0.7 ###
-
-* Include global assets
-* Catch Assetic RunTimeExceptions in Writter
-
-### 1.0.4 ###
-
-* Fix bugs in HMVC Mode add_path
-* Catch add_path errors
-* Autoload url codeigniter helper (used as default)
-
 ## Other Twig Implementations for Codeigniter ##
 
 [https://github.com/kenjis/codeigniter-ss-twig](https://github.com/kenjis/codeigniter-ss-twig)
