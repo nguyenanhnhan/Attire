@@ -580,6 +580,14 @@ class Twig
 	}
 
 	/**
+	 * Cloned method from add_layout
+	 */
+	public function set_layout($type = "", $params = array())
+	{
+		return $this->add_layout($type,$params);
+	}
+
+	/**
 	 * Add CI View file
 	 *
 	 * Every view file added (in the order they added) is rendered at last
@@ -706,10 +714,10 @@ class Twig
 	}
 
 	/**
-	 * Render the Twig template with some variables
+	 * Render the Twig template
 	 *
 	 * If Twig Loader method is string, we can render view as string template and
-	 * set the params, else there is no need to declare params in this method.
+	 * set the params, else there is no need to declare params or view in this method.
 	 * 
 	 * @param  string $view   
 	 * @param  array  $params 
@@ -717,13 +725,15 @@ class Twig
 	 */
 	public function render($view = "", $params = array())
 	{	
+		$this->_ci->load->helper('url');
+		# Set current Theme global vars
 		$this->_set_global_vars();
+		# Set Codeigniter Helper functions inside CI-Twig environment
 		$this->_set_ci_functions();
+		# Add default/module view paths
 		$this->_add_module_view_paths();
-		
 		# Twig environment (master of puppets)
 		$twig = $this->_environment;
-
 		try {
 			if (! is_a($twig, 'Twig_Environment')) 
 			{
@@ -732,22 +742,20 @@ class Twig
 		} catch (Exception $e) {
 			$this->_show_error($e->getMessage());
 		}		
-		
 		# Secure stuff
 		$escaper = new Twig_Extension_Escaper('html');
 		$twig->addExtension($escaper);		
-
 		# Declare asset manager and add global paths
 		$am = new AssetManager();
 		$absolute_path = rtrim("{$this->_paths['modules']}{$this->_hmvc->module}",'/');
-		
+		# Assets global paths
 		$globals = array(
 			'module_js'  => 'assets/js',
 			'module_css' => 'assets/css',
 			'global_css' => 'assets/global/css',
 			'global_js'  => 'assets/global/js'
 		);
-		# Is a global or module path, maybe we can solve it
+		# ¿Is it global or module path?, maybe we can solve it..
 		foreach ($globals as $global => $global_path) 
 		{
 			if (strpos($global_path, 'global') !== FALSE) 
@@ -770,23 +778,21 @@ class Twig
 		$fm = new FilterManager();
 		$fm->set('cssrewrite', new CssRewriteFilter());
 		$absolute_path = rtrim("{$this->_paths["theme"]}{$this->_theme}",'/').'/assets';
-
 		# Declare assetic factory with filters and assets
 		$factory = new AssetFactory($absolute_path);
 		$factory->setAssetManager($am);
 		$factory->setFilterManager($fm);
 		$factory->setDebug($this->_debug);
-
+		# Add assetic extension to factory
 		$absolute_path = rtrim($this->_paths['assets'],'/');
 		$factory->setDefaultOutput($absolute_path);
 		$twig->addExtension(new AsseticExtension($factory));
-
+		# This is too lazy, we need a lazy asset manager...
 		$am = new LazyAssetManager($factory);
 		$am->setLoader('twig', new TwigFormulaLoader($twig));
-
+		# Adding the Twig resource (following the assetic documentation)
 		$resource = new TwigResource($this->_loader, $this->_default_template.$this->_extension);
 		$am->addResource($resource, 'twig');
-
 		# Write all assets files in the output directory in one or more files
 		try {
 			$writer = new AssetWriter($absolute_path);
@@ -794,7 +800,6 @@ class Twig
 		} catch (\RuntimeException $e) {
 			$this->_show_error($e->getMessage());
 		}	
-		
 		# Render all childs
 		if (! empty($this->_childs)) 
 		{
