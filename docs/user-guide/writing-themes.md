@@ -1,12 +1,12 @@
-# Create a new Theme 
+# Creating a new Theme 
 
-Obviously, you can create as many layouts and theme you want, follow me in every step for doing this. 
+Create as many layouts and templates you need in your project. 
 
 ---
 
-##Create the directory
+##Creating the directory structure
 
-Create a new directory structure inside the `theme` folder:
+Create a new directory structure inside the theme directory:
 
 ```
 +-theme/
@@ -19,9 +19,9 @@ Create a new directory structure inside the `theme` folder:
 | | +- theme.twig
 ```
 
-##Create a theme file
+##Creating the theme master file
 
-You are gonna need to create a new `theme.twig` file structure, this is the default template used in every `CI-Twig` theme instance:
+You are gonna need to create a new structured **theme.twig** file. This is the default template used in every CI-Twig theme instance:
 
 ```
 <!DOCTYPE html>
@@ -52,7 +52,7 @@ You are gonna need to create a new `theme.twig` file structure, this is the defa
 
 Use it as a basic template and create something unique.
 
-##Create the layout
+##Displaying the template
 
 Same as `theme.twig`, the `layouts/new_layout.twig` default template: 
 
@@ -69,7 +69,7 @@ Same as `theme.twig`, the `layouts/new_layout.twig` default template:
 
 Anything can be a layout, check the [twig extends docs](http://twig.sensiolabs.org/doc/tags/extends.html).
 
-##Load theme layout and views
+##Display the template
 
 Set the new theme and structure, add the views and load it before sending the output to the browser.
 

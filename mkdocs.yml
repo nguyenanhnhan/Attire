@@ -8,6 +8,7 @@ repo_url: https://github.com/mkdocs/mkdocs/
 pages:
 - ['index.md','Home']
 - ['user-guide/writing-themes.md','User Guide','Creating your themes']
+- ['user-guide/extending-environment.md','User Guide','Extending Twig Environment']
 - ['about/release-notes.md','About','Release notes']
 - ['about/contributing.md','About','Contributing']
 - ['about/license.md','About','Licence']

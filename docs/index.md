@@ -1,6 +1,6 @@
 # CI-Twig
 
-An implementation of Twig/Assetic template engine for CodeIgniter 3.0. 
+An implementation of Twig template engine and Assetic asset management framework for CodeIgniter 3.0.
 
 ---
 
@@ -8,9 +8,7 @@ An implementation of Twig/Assetic template engine for CodeIgniter 3.0.
 
 ##Overview
 
-CI-Twig supports theme instances, layouts, functions, filters and lexers using **Twig/Assetic** template engine in CodeIgniter 3.0. It's gonna make your life easier for developing and maintaining your CodeIgniter regular/HMVC applications where structured templates are necessary.
-
-With CI-Twig you can separately set the theme, layout and even the assets for each page. Also this does not replace CodeIgniter's default views.
+CI-Twig library supports template inheritance using **Twig** template engine and **Assetic** as an asset management framework in **CodeIgniter 3.0**. This integration it's gonna make your life easier for developing and maintaining structured templates, layouts and even the assets for each section in your application.
 
 ---
 
@@ -19,19 +17,29 @@ With CI-Twig you can separately set the theme, layout and even the assets for ea
 * PHP 5.2.4+
 * CodeIgniter 3.x 
 
-**Note**: Codeigniter 2.x is not supported.
+**Note**: Codeigniter 2.x it's not supported.
 
 ---
 
 ##Installation
 
+With Composer:
+
 	composer require "dsv/ci-twig":"^1.1"
 
-CI-Twig is a regular library, so it should be installed in the **libraries** directory inside your appplication. Also remember to config the **composer autoload** param inside your **application/config/config.php** file.
+CI-Twig is a regular library, so composer should be install it in the **libraries** directory inside your appplication. 
 
-###Setting up the directory structure
+---
 
-Before using **CI-Twig** we need to a few more steps, first create this directory structure inside your CodeIgniter application:
+##Setting up the environment
+
+Before we start, let me remind you to check the configuration of **composer_autoload** inside your **application/config/config.php** file.
+
+Now we need to set the environment where all your templates are stored properly.
+
+###Directory structure
+
+First create this directory structure inside your CodeIgniter application:
 
 ```
 +-APPPATH/
@@ -45,11 +53,13 @@ Before using **CI-Twig** we need to a few more steps, first create this director
 * **APPPATH** is Codeigniter's principal directory, where all your controllers, models and views are placed.
 * **FCPATH** is Codeigniter's secured installation directory, where your **index.php** file is placed (normally outside the application directory).
 
-**CI-Twig** uses **Assetics** for manage the assets used in every theme, so you are gonna need to set the **assets** directory with writable permissions.
+###Assets permissions
 
-###Copy the theme example structure
+**CI-Twig** uses **Assetics** for manage the assets used in every template, so you are gonna need to set the **assets** directory with writable permissions.
 
-By default **CI-Twig** uses a **Bootstrap** instance. Copy the **dist/bootstrap** directory inside of theme directory:
+###Theme example structure
+
+By default **CI-Twig** uses a **Bootstrap** as a template example. If you like to see this example copy the **dist/bootstrap** directory inside of theme directory.
 
 ```
 +-APPPATH/
@@ -69,13 +79,11 @@ Now you're ready to start working with CI-Twig.
 
 ##Getting started
 
-Getting started is super easy as another CI's Library. Let's move inside your controller and load the library:
+Getting started is like load any CI's Library:
 
 ```php
 $this->load->library('ci-twig/twig'); 
 ``` 
-
-###Set a theme and layout 
 
 CI-Twig mantains all your views in order, so in every theme structure needs to be a layout and a views directory.
 
@@ -86,33 +94,22 @@ $this->twig->set_theme('bootstrap');
 $this->twig->set_layout('container');
 ```
 
-Chaining method also supported:
+**Note:** chaining method also supported.
 
 ```php
 $this->twig->set_theme('bootstrap')->set_layout('container');
 ```
 
-Also create a directory inside the **views** directory with the name of the controller where it will be used.
-
-Example: if we are in the ```Welcome``` controller we need a **welcome** view directory.
-
-```
-+-APPPATH/
-| | +-views/
-| | | +-welcome/
-```
-
-There's no need to add views right now, eventually we are going to show you how to do this.
-
+<!-- Also create a directory inside the **views** directory with the name of the controller where it will be used. -->
 And the last thing that wee need to do is display the theme.
 
 ```php
 $this->twig->render();
 ```
 
-###Full example
+###Example
 
-A full example using **CI-Twig** in the Welcome Controller:
+An example using **CI-Twig** in the Welcome Controller:
 
 ```php
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
@@ -128,9 +125,11 @@ class Welcome extends CI_Controller
 }
 ```
 
-Let's take a look to the example in the browser:
+Let's take a look in the browser:
 
 ![Screenshot](img/hello_world.png)
+
+This is the current output of the render method. Now you can use the bootstrap responsive framework in your application!!
 
 ---
 
@@ -141,11 +140,14 @@ So far we've only displayed the default template and layout. You can add views t
 ```php
 $this->twig->add_view($view,$params)
 ```
+Where ```$view``` is the view file name and ```$params``` is an array of variables used inside the view interface.
+
 It's exactly like the Codeigniter's method: 
 
 ```php
 $this->load->view($view,$params)
 ``` 
+
 
 ###Example
 
@@ -158,7 +160,7 @@ Using the `Welcome` controler as an example and the `index` as method, let's cre
 | | | | +-index/
 ```
 
-Then create a view inside it called **foo.php**:
+Then create a view inside the **index** directory called **foo.php**:
 
 ```html
 <!-- views/welcome/index/foo.php -->
@@ -167,7 +169,7 @@ Then create a view inside it called **foo.php**:
 
 ```
 
-Next add the view without specifing the directory app:
+Next add the view without specifing the directory app and the extension:
 
 ```php
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
@@ -187,6 +189,24 @@ And this is the output:
 
 ![Screenshot](img/add_view.png)
 
+And that's how you add views inside your controller's method. Also you can add as many views as you want using the same function multiple times. 
+
+```php
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
+
+class Welcome extends CI_Controller 
+{
+	public function index()
+	{	
+		$this->load->library('ci-twig/twig');
+		$this->twig->set_theme('bootstrap')->add_layout('container');
+		$this->twig->add_view('foo');
+		$this->twig->add_view('fighters');
+		$this->twig->add_view('dave_grohl');
+		$this->twig->render();	
+	}
+}
+```
 ---
 
 ## Theming our application
@@ -217,7 +237,7 @@ class Welcome extends CI_Controller
 ```
 
 
-Here's the folder structure for this example.
+Here's the directory structure for this example.
 
 ```
 +-application
@@ -251,7 +271,7 @@ class Welcome extends CI_Controller
 }
 ```
 
-Here's the folder structure for this example.
+Here's the directory structure for this example.
 
 ```
 +-application
@@ -259,7 +279,7 @@ Here's the folder structure for this example.
 | | +-foo.php
 ```
 
-And there you go, you can add many views as you want before the render method call.
+And there you go, adding views to CI-Twig is easy as the CodeIgniter natural method's.
 
 ---
 
