@@ -56,6 +56,12 @@ use \RuntimeException;
 class Twig
 {
 	/**
+	 * Twig current lexer established
+	 * @var array
+	 */
+	protected $_current_lexer = NULL;
+
+	/**
 	 * Master layout template name
 	 * @var string
 	 */
@@ -388,8 +394,7 @@ class Twig
 		} catch (Exception $e) {
 			$this->_show_error($e->getMessage());
 		}		
-		$new_lexer = new Twig_Lexer($this->_environment, $lexer);
-		$this->_environment->setLexer($new_lexer);	
+		$this->_current_lexer = $lexer;
 		return $this;	
 	}
 
@@ -733,7 +738,7 @@ class Twig
 		# Add default/module view paths
 		$this->_add_module_view_paths();
 		# Twig environment (master of puppets)
-		$twig = $this->_environment;
+		$twig = &$this->_environment;
 		try {
 			if (! is_a($twig, 'Twig_Environment')) 
 			{
@@ -799,7 +804,13 @@ class Twig
 			$writer->writeManagerAssets($am);
 		} catch (\RuntimeException $e) {
 			$this->_show_error($e->getMessage());
-		}	
+		}
+		# Set current lexer
+		if (!$this->_current_lexer !== NULL) 
+		{
+			$lexer = new Twig_Lexer($this->_environment, $this->_current_lexer);
+			$twig->setLexer($lexer);
+		}
 		# Render all childs
 		if (! empty($this->_childs)) 
 		{
