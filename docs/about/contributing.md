@@ -15,14 +15,14 @@ The CI-Twig project welcomes, and depends, on contributions from developers and 
 
 Please include as much detail as you can. Let us know your platform and CI-Twig/CodeIgniter version. If the problem is visual (for example a theme or design issue) please add a screenshot and if you get an error please include the the full error and traceback.
 
-###Testing the Development Version
+<!-- ###Testing the Development Version
 
 If you want to just install and try out the latest development version of CI-Twig you can do so with composer: 
 
 ```
 composer require "dsv/ci-twig":"dev-master"
 ```
-This can be useful if you want to provide feedback for a new feature or want to confirm if a bug you have encountered is fixed in the git master. It is strongly recommended that you do this within a virtualenv.
+This can be useful if you want to provide feedback for a new feature or want to confirm if a bug you have encountered is fixed in the git master. It is strongly recommended that you do this within a virtualenv. -->
 
 <!--
 Running the tests
