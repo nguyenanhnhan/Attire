@@ -1,10 +1,10 @@
-# Creating a new Theme 
+#Creating your themes 
 
 Create as many layouts and templates you need in your project. 
 
 ---
 
-##Creating the directory structure
+##Directory structure
 
 Create a new directory structure inside the theme directory:
 
@@ -19,7 +19,7 @@ Create a new directory structure inside the theme directory:
 | | +- theme.twig
 ```
 
-##Creating the theme master file
+##Theme (master template)
 
 You are gonna need to create a new structured **theme.twig** file. This is the default template used in every CI-Twig theme instance:
 
@@ -52,9 +52,9 @@ You are gonna need to create a new structured **theme.twig** file. This is the d
 
 Use it as a basic template and create something unique.
 
-##Displaying the template
+##Layout
 
-Same as `theme.twig`, the `layouts/new_layout.twig` default template: 
+Same as **theme.twig**, the **layouts/new_layout.twig** default template: 
 
 ```php
 {% extends "theme.twig" %}
@@ -69,7 +69,7 @@ Same as `theme.twig`, the `layouts/new_layout.twig` default template:
 
 Anything can be a layout, check the [twig extends docs](http://twig.sensiolabs.org/doc/tags/extends.html).
 
-##Display the template
+##Rendering the theme
 
 Set the new theme and structure, add the views and load it before sending the output to the browser.
 
@@ -87,6 +87,4 @@ class Welcome extends CI_Controller
 }
 ```
 
-**Notes**: 
-
-* Notice that you only need to specify the name of the template (without the extension `*.twig`).
+Notice that you only need to specify the name of the template (without the extension `*.twig`).
