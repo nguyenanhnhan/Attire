@@ -502,6 +502,16 @@ class Twig
 	}
 
 	/**
+	 * [set_global description]
+	 * @param [type] $name  [description]
+	 * @param [type] $value [description]
+	 */
+	public function add_global($name, $value=NULL)
+	{
+		return $this->set_param($name,$value);
+	}
+
+	/**
 	 * Add global params in Twig
 	 * 
 	 * @param string $name  Param name
@@ -716,6 +726,31 @@ class Twig
 				$this->add_function($name,$function);
 			}
 		}
+	}
+
+	/**
+	 * Add Twig filters same as functions
+	 * 
+	 * @param [type] $name     [description]
+	 * @param [type] $function [description]
+	 */
+	public function add_filter($name, $function=NULL)
+	{
+		try 
+		{
+			if ((!is_callable($function)) && (!is_string($name))) 
+			{
+				throw new Exception("Cannot set function, check params.");
+			}
+			elseif (! is_a($this->_environment, 'Twig_Environment')) 
+			{
+				throw new Exception("Twig_Environment is not set correctly.");
+			}			
+		} catch (Exception $e) {
+			$this->_show_error($e->getMessage());
+		}
+		$filter = new Twig_SimpleFilter($name,$function);
+		return $this;
 	}
 
 	/**
