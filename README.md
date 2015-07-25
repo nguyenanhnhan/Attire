@@ -1,4 +1,4 @@
-**Documentation for CI-Twig is available at [codeigniter-twig.readthedocs.org](codeigniter-twig.readthedocs.org).**
+**Documentation for CI-Twig is available at [codeigniter-twig.readthedocs.org](http://codeigniter-twig.readthedocs.org).**
 
 ---
 # CI-Twig
