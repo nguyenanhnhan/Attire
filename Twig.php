@@ -59,7 +59,7 @@ class Twig
 	 * Twig current lexer established
 	 * @var array
 	 */
-	protected $_current_lexer = NULL;
+	protected $_current_lexer = array();
 
 	/**
 	 * Master layout template name
@@ -841,7 +841,7 @@ class Twig
 			$this->_show_error($e->getMessage());
 		}
 		# Set current lexer
-		if (!$this->_current_lexer !== NULL) 
+		if (!empty($this->_current_lexer)) 
 		{
 			$lexer = new Twig_Lexer($this->_environment, $this->_current_lexer);
 			$twig->setLexer($lexer);
