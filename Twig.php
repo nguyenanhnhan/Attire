@@ -56,6 +56,12 @@ use \RuntimeException;
 class Twig
 {
 	/**
+	* Restricted view files mode
+	* @var bool
+	*/
+	protected $_restricted_mode = FALSE;
+	
+	/**
 	 * Twig current lexer established
 	 * @var array
 	 */
@@ -318,12 +324,16 @@ class Twig
 			$path = "{$this->_paths['modules']}{$this->_hmvc->module}/views";
 			$this->add_path($path,'module', FALSE, FALSE);
 		}
-		else 
+		elseif($this->_restricted_mode !== FALSE)
 		{
 			$path = VIEWPATH . $this->_hmvc->controller;
 			$this->add_path($path,'module',FALSE,FALSE);
 		}
-        return $this;
+		else
+		{
+			$this->add_path(VIEWPATH,'module',FALSE,FALSE);
+		}
+        	return $this;
 	}
 
 	/**
@@ -444,11 +454,11 @@ class Twig
 		try {
 			if (!is_a($this->_loader, 'Twig_Loader_Filesystem')) 
 			{
-				throw new Exception("Loader is not set correctly.");
+				throw new Exception("Loader not set correctly.");
 			}
 			if (!file_exists($path)) 
 			{
-				throw new Exception("{$path} not currently exist.");
+				throw new Exception("{$path} currently not exist.");
 			}
 		} catch (Exception $e) {
 			$this->_show_error($e->getMessage());
