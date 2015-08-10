@@ -712,23 +712,62 @@ class Twig
 	 */
 	private function _set_ci_functions()
 	{
-		$functions = array(
+		$functions = array(	
 			'base_url' => function($path){ 
 				return base_url($path); 
 			},
 			'site_url' => function($path){ 
 				return site_url($path); 
 			},
+			'current_url' => function(){
+				return current_url();
+			},
+			'uri_string' => function(){
+				return uri_string();
+			},
+			'index_page' => function(){
+				return index_page();
+			},
+			'anchor' => function($uri = '', $title = '', $attributes = ''){
+				return anchor($uri, $title, $attributes);
+			},
+			'anchor_popup' => function($uri = '', $title = '', $attributes = FALSE){
+				return anchor_popup($uri, $title, $attributes);
+			},
+			'mailto' => function($email, $title = '', $attributes = ''){
+				return mailto($email,$title,$attributes);
+			},
+			'safe_mailto' => function($email, $title = '', $attributes = ''){
+				return safe_mailto($email,$title,$attributes);
+			},
 			'form_open' => function($path, $params = array()){ 
 				return form_open($path, $params); 
 			},
 			'form_open_multipart' => function($path, $params = array()){
-				return form_open_multipart($path,$params);
+				return form_open_multipart($path, $params);
 			},
 			'form_close' => function(){
 				return form_close();
-			}
+			},
+            'javascript_tag' => function($content = null, $html_attributes = array()){
+                return javascript_tag($content = null, $html_attributes = array());
+            },
+            'stylesheet_tag' => function($content = null, $html_attributes = array()){
+                return stylesheet_tag($content = null, $html_attributes = array());
+            },
+            'include_javascript' => function($file, $additional = null){
+                return include_javascript($file, $additional = null);
+            },
+            'include_stylesheet' => function($file, $additional = null){
+                return include_stylesheet($file, $additional = null);
+            },
+            'lang' => function($line, $for = '', $attributes = array()){
+            	return lang($line, $for, $attributes);
+            }		
 		);
+        $this->_ci->load->config('twig', TRUE);
+        $config_functions = $this->_ci->config->item('twig_ci_functions', 'twig', TRUE);
+        is_array($config_functions) && $functions = array_merge($functions,$config_functions);
 		foreach ($functions as $name => $function) 
 		{
 			if (function_exists($name)) 
@@ -774,8 +813,9 @@ class Twig
 	 * @return void         
 	 */
 	public function render($view = "", $params = array())
-	{	
-		$this->_ci->load->helper('url');
+	{
+		# Autoload url helper (required)
+		$this->_ci->load->helper('url');		
 		# Set current Theme global vars
 		$this->_set_global_vars();
 		# Set Codeigniter Helper functions inside CI-Twig environment
@@ -791,7 +831,7 @@ class Twig
 			}
 		} catch (Exception $e) {
 			$this->_show_error($e->getMessage());
-		}		
+		}				
 		# Secure stuff
 		$escaper = new Twig_Extension_Escaper('html');
 		$twig->addExtension($escaper);		
