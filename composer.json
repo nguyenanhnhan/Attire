@@ -31,7 +31,7 @@
     ],
     "support":{
         "issues": "https://gitlab.com/david-sosa-valdes/ci-attire/issues",
-        "wiki": "http://codeigniter-twig.readthedocs.org/",
+        "wiki": "http://ci-attire.readthedocs.org/",
         "email": "david.sosa.valdes@gmail.com"
     },
     "extra": {
