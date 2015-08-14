@@ -7,7 +7,8 @@ An implementation of **Twig template engine** and **Assetic asset management fra
 
 ---
 
-[![Latest Stable Version](https://poser.pugx.org/dsv/ci-twig/v/stable)](https://packagist.org/packages/dsv/ci-twig) [![Total Downloads](https://poser.pugx.org/dsv/ci-twig/downloads)](https://packagist.org/packages/dsv/ci-twig) [![Latest Unstable Version](https://poser.pugx.org/dsv/ci-twig/v/unstable)](https://packagist.org/packages/dsv/ci-twig) [![License](https://poser.pugx.org/dsv/ci-twig/license)](https://packagist.org/packages/dsv/ci-twig) [![Documentation Status](https://readthedocs.org/projects/codeigniter-twig/badge/?version=latest)](https://readthedocs.org/projects/codeigniter-twig/?badge=latest)
+[![Latest Stable Version](https://poser.pugx.org/dsv/attire/v/stable)](https://packagist.org/packages/dsv/attire) [![Total Downloads](https://poser.pugx.org/dsv/attire/downloads)](https://packagist.org/packages/dsv/attire) [![Latest Unstable Version](https://poser.pugx.org/dsv/attire/v/unstable)](https://packagist.org/packages/dsv/attire) [![License](https://poser.pugx.org/dsv/attire/license)](https://packagist.org/packages/dsv/attire) [![Documentation Status](https://readthedocs.org/projects/ci-attire/badge/?version=latest)](https://readthedocs.org/projects/ci-attire/?badge=latest)
+
 
 Attire library supports template inheritance using **Twig** template engine and **Assetic** as an asset management framework in CodeIgniter 3.0. This integration it's gonna make your life easier for developing and maintaining structured templates, layouts and even the assets for each section in your application.
 
