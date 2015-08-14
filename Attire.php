@@ -5,6 +5,7 @@ use Assetic\AssetWriter;
 use Assetic\Asset\GlobAsset;
 use Assetic\Asset\AssetCollection;
 use Assetic\Factory\AssetFactory;
+use Assetic\Factory\LazyAssetManager;
 use Assetic\Extension\Twig\TwigFormulaLoader;
 use Assetic\Extension\Twig\TwigResource;
 use Assetic\Extension\Twig\AsseticExtension;
@@ -676,6 +677,8 @@ class Attire
 		$this->add_path(VIEWPATH, 'VIEWPATH');
 		# Twig environment (master of puppets)
 		$twig = &$this->_environment;				
+		$escaper = new Twig_Extension_Escaper('html');
+		$twig->addExtension($escaper);	
 		# Declare asset manager and add global paths
 		$am = new AssetManager();
 		# Assets global paths
@@ -702,7 +705,21 @@ class Attire
 		$factory->setDebug($this->_debug);
 		# Add assetic extension to factory
 		$absolute_path = rtrim($this->_paths['assets'],'/');
+		$factory->setDefaultOutput($absolute_path);
 		$twig->addExtension(new AsseticExtension($factory));
+		# This is too lazy, we need a lazy asset manager...
+		$am = new LazyAssetManager($factory);
+		$am->setLoader('twig', new TwigFormulaLoader($twig));
+		# Adding the Twig resource (following the assetic documentation)
+		$resource = new TwigResource($this->_loader, $this->_default_template.$this->_extension);
+		$am->addResource($resource, 'twig');
+		# Write all assets files in the output directory in one or more files
+		try {
+			$writer = new AssetWriter($absolute_path);
+			$writer->writeManagerAssets($am);
+		} catch (\RuntimeException $e) {
+			$this->_show_error($e->getMessage());
+		}		
 		# Set current lexer
 		if (!empty($this->_current_lexer)) 
 		{
