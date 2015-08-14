@@ -21,7 +21,7 @@ Create a new directory structure inside the theme directory:
 
 ##Theme (master template)
 
-You are gonna need to create a new structured **theme.twig** file. This is the default template used in every CI-Twig theme instance:
+You are gonna need to create a new structured **theme.twig** file. This is the default template used in every **Attire** theme instance:
 
 ```
 <!DOCTYPE html>
@@ -80,9 +80,9 @@ class Welcome extends CI_Controller
 {
 	public function index()
 	{	
-		$this->load->library('ci-twig/twig');
-		$this->twig->set_theme('new_theme')->add_layout('new_layout');
-		$this->twig->add_view('welcome_message')->render();	
+		$this->load->library('attire/attire');
+		$this->attire->set_theme('new_theme')->add_layout('new_layout');
+		$this->attire->add_view('welcome_message')->render();	
 	}
 }
 ```

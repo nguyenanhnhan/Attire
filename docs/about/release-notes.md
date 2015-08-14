@@ -2,6 +2,14 @@
 
 ---
 
+###v1.2.0 (oniricosistemas)
+
+* Add CI helper/libraries functions inside the config file.
+* Fix bugs (render method)
+* Improve memory usage
+
+Thanks to Lucas Sastre from [Oniricosistemas](http://www.oniricosistemas.com.ar/en/index.php) for the support.
+
 ###v1.1.9
 
 * Now you can add ```Twig_SimpleFilter``` objects with the add_filter method.
@@ -18,6 +26,8 @@
 ###v1.1.5 (zheselevko)
 
 * Fix the hmvc directory paths bugs.
+
+Thanks to [@zheselevko](https://github.com/zheselevko) for the support.
 
 ###v1.1.3
 

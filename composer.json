@@ -1,6 +1,6 @@
 {
-    "name": "dsv/ci-twig",
-    "description": "An implementation of Twig template engine and Assetic asset management framework for CodeIgniter 3.0.",
+    "name": "dsv/attire",
+    "description": "Attire is an implementation of Twig template engine and Assetic asset management framework for CodeIgniter 3.0.",
     "type": "codeigniter-library",
      "keywords": [
         "twig",
@@ -8,15 +8,21 @@
         "codeigniter-twig",
         "codeigniter",
         "codeigniter-assetic",
-        "codeigniter-theme"
+        "codeigniter-theme",
+        "codeigniter-template",
+        "template-engine",
+        "asset-management"
+        "codeigniter-attire",
+        "attire"
     ],
     "license": "MIT",
     "require": {
+        "php": ">=5.2.4",
         "composer/installers": "*",
         "twig/twig": "^1.18",
         "kriswallsmith/assetic": "^1.2"
     }, 
-    "homepage": "https://gitlab.com/david-sosa-valdes/ci-twig",
+    "homepage": "https://gitlab.com/david-sosa-valdes/ci-attire",
     "authors": [
         {
             "name": "David Sosa Valdes",
@@ -24,11 +30,13 @@
         }
     ],
     "support":{
-        "issues": "https://gitlab.com/david-sosa-valdes/ci-twig/issues"
+        "issues": "https://gitlab.com/david-sosa-valdes/ci-attire/issues",
+        "wiki": "http://codeigniter-twig.readthedocs.org/",
+        "email": "david.sosa.valdes@gmail.com"
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "1.1.x-dev"
+            "dev-master": "1.2.x-dev"
         }
     }    
 }

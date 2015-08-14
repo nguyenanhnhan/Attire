@@ -1,10 +1,10 @@
-##Contributing to CI-Twig
+##Contributing to Attire
 
-An introduction to contributing to the CI-Twig project.
+An introduction to contributing to the Attire project.
 
 ---
 
-The CI-Twig project welcomes, and depends, on contributions from developers and users in the CodeIgniter open source community. Contributions can be made in a number of ways, a few examples are:
+The Attire project welcomes, and depends, on contributions from developers and users in the CodeIgniter open source community. Contributions can be made in a number of ways, a few examples are:
 
 * Code patches via pull requests
 * Documentation improvements
@@ -13,14 +13,14 @@ The CI-Twig project welcomes, and depends, on contributions from developers and 
 
 ###Reporting an Issue?
 
-Please include as much detail as you can. Let us know your platform and CI-Twig/CodeIgniter version. If the problem is visual (for example a theme or design issue) please add a screenshot and if you get an error please include the the full error and traceback.
+Please include as much detail as you can. Let us know your platform and Attire/CodeIgniter version. If the problem is visual (for example a theme or design issue) please add a screenshot and if you get an error please include the the full error and traceback.
 
 <!-- ###Testing the Development Version
 
-If you want to just install and try out the latest development version of CI-Twig you can do so with composer: 
+If you want to just install and try out the latest development version of Attire you can do so with composer: 
 
 ```
-composer require "dsv/ci-twig":"dev-master"
+composer require "dsv/attire":"dev-master"
 ```
 This can be useful if you want to provide feedback for a new feature or want to confirm if a bug you have encountered is fixed in the git master. It is strongly recommended that you do this within a virtualenv. -->
 

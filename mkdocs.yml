@@ -1,4 +1,4 @@
-site_name: CI-Twig
+site_name: Attire
 site_url: https://gitlab.com/david-sosa-valdes/ci-twig
 site_description: CI-Twig it's a simple implementation of Twig template engine for CodeIgniter. It supports themes, layouts, templates for regular apps and also for apps that use HMVC.
 site_author: David Sosa Valdes

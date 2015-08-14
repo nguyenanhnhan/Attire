@@ -1,7 +1,7 @@
 Extending Twig Environment
 ========
 
-Twig is flexible enough for all your needs, even the most complex ones. CI-Twig implement tags, filters, functions and even operators with ease thanks to for an open architecture.
+Twig is flexible enough for all your needs, even the most complex ones. **Attire** implements Twig tags, filters and functions with ease thanks to for his open architecture.
 
 ---
 
@@ -10,7 +10,7 @@ Twig is flexible enough for all your needs, even the most complex ones. CI-Twig 
 A global variable it's available in all the views used in the template:
 
 ```php
-$this->twig->add_global('text', new Text());
+$this->attire->add_global('text', new Text());
 ```
 
 Then you can use it as follows:
@@ -22,20 +22,20 @@ Then you can use it as follows:
 
 ##Filters
 
-CI-Twig implements ```Twig_SimpleFilter``` objects. This is usefull when you're integrating third-party libraries, helpers or libraries that needed inside the views.
+Attire implements ```Twig_SimpleFilter``` objects. This is usefull when you're integrating third-party libraries, helpers or libraries that needed inside the views.
 
 ```php
 // Closure function
-$this->twig->add_filter('rot13',function ($string) {
+$this->attire->add_filter('rot13',function ($string) {
     return str_rot13($string);
 }));
 
 // Or a simple php function
-$this->twig->add_filter('rot13','str_rot13')
+$this->attire->add_filter('rot13','str_rot13')
 
 
 // Or a class method
-$this->twig->add_filter('rot13',array('SomeClass', 'rot13Filter'));
+$this->attire->add_filter('rot13',array('SomeClass', 'rot13Filter'));
 ```
 
 The first argument passed is the name of the *filter* and the second it's the *closure function*. Inside the view you can call the filter:
@@ -54,7 +54,7 @@ When called by Twig, the PHP executable on the left side receives the filter (be
 Functions supporting the same characteristics as the **filters**, except for the options preserves_safety and pre_escapr.
 
 ```php
-$this->twig->add_function('function_name', closure_function);
+$this->attire->add_function('function_name', closure_function);
 ```
 
 **Example**
@@ -62,7 +62,7 @@ $this->twig->add_function('function_name', closure_function);
 Create a new function inside your controller's method:
 
 ```php
-$this->twig->add_function('foo_bar', function(){return "foo";});
+$this->attire->add_function('foo_bar', function(){return "foo";});
 ```
 
 Now you can call the function:
