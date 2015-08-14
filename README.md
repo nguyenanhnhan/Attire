@@ -1,4 +1,4 @@
-**Documentation for Attire is available at [codeigniter-twig.readthedocs.org](http://codeigniter-twig.readthedocs.org).**
+**Documentation for Attire is available at [ci-attire.readthedocs.org/](http://ci-attire.readthedocs.org/).**
 
 ---
 # Attire
