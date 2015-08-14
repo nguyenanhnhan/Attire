@@ -154,7 +154,6 @@ class Attire
 	{
         $this->_ci =& get_instance();
         Twig_Autoloader::register();
-        
         try 
         {
 	        $this->_ci->load->config('attire', TRUE);   

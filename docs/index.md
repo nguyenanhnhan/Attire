@@ -1,3 +1,6 @@
+<div style="text-align: center">
+	<img src="img/attire_logo.png" alt="alt text" width="180px" height="180px">
+</div>
 # Attire
 
 An implementation of Twig template engine combined with Assetic asset management framework for CodeIgniter 3.0.
