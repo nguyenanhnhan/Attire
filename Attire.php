@@ -48,6 +48,12 @@ use Assetic\Filter\CssRewriteFilter;
 class Attire
 {
 	/**
+	 * [$_assets description]
+	 * @var array
+	 */
+	protected $_assets = array();
+
+	/**
 	* Restricted view files mode
 	* @var bool
 	*/
@@ -650,6 +656,17 @@ class Attire
 	}
 
 	/**
+	 * [add_asset description]
+	 * @param [type] $module_name [description]
+	 * @param [type] $path        [description]
+	 */
+	public function add_asset($module_name, $path)
+	{
+		$this->_assets[$module_name] = $path;
+		return $this;
+	}
+
+	/**
 	 * Render the Twig template with Assetic manager
 	 *
 	 * If Twig Loader method is string, we can render view as string template and
@@ -696,7 +713,7 @@ class Attire
 				'global_css' => 'global/css',
 				'global_js'  => 'global/js'
 			);
-			foreach ($global_assets as $global => $global_path) 
+			foreach (array_merge($global_assets,$this->_assets) as $global => $global_path) 
 			{
 				$path = "{$absolute_path}/{$global_path}/{$class}/{$method}/*";
 				$am->set($global, new GlobAsset($path));
