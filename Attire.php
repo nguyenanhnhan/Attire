@@ -661,6 +661,7 @@ class Attire
 	 */
 	public function render($view = "", $params = array())
 	{
+		$this->_ci->benchmark->mark('AttireRender_start');
 		# Autoload url helper (required)
 		$this->_ci->load->helper('url');		
 		# Set current Theme global vars
@@ -682,17 +683,24 @@ class Attire
 		# Declare asset manager and add global paths
 		$am = new AssetManager();
 		# Assets global paths
-		$absolute_path = rtrim($this->_paths['assets'].'/');
-		$global_assets = array(
-			'module_js'  => 'js',
-			'module_css' => 'css',
-			'global_css' => 'global/css',
-			'global_js'  => 'global/js'
-		);
-		foreach ($global_assets as $global => $global_path) 
+		if ($bundles_path = config_item('bundles_path')) 
 		{
-			$path = "{$absolute_path}/{$global_path}/*";
-			$am->set($global, new GlobAsset($path));
+			$class  = $this->_ci->router->fetch_class();
+			$method = $this->_ci->router->fetch_method();
+			$directory = $this->_ci->router->directory;
+
+			$absolute_path = rtrim($bundles_path.$directory.'assets','/');
+			$global_assets = array(
+				'module_js'  => 'js',
+				'module_css' => 'css',
+				'global_css' => 'global/css',
+				'global_js'  => 'global/js'
+			);
+			foreach ($global_assets as $global => $global_path) 
+			{
+				$path = "{$absolute_path}/{$global_path}/{$class}/{$method}/*";
+				$am->set($global, new GlobAsset($path));
+			}			
 		}
 		# Declare filters manager
 		$fm = new FilterManager();
@@ -748,6 +756,7 @@ class Attire
 		{
 			$this->_show_error($e->getMessage());	
 		}		
+		$this->_ci->benchmark->mark('AttireRender_end');
 	}
 }
 
