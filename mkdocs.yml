@@ -15,4 +15,6 @@ pages:
 
 theme: readthedocs
 
-copyright: Copyright &copy; 2015 <a href="https://gitlab.com/david-sosa-valdes">David Sosa Valdes</a>.
+google_analytics: ['UA-41717346-3', 'ci-attire.readthedocs.org/en/latest/']
+
+copyright: Copyright &copy; 2015 <a href="https://gitlab.com/david-sosa-valdes">David Sosa Valdes</a>.<br><div>Icons made by <a href="http://www.flaticon.com/authors/tutsplus" title="TutsPlus">TutsPlus</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a> / Desaturated from original.</div>

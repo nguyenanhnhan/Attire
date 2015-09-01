@@ -1,5 +1,5 @@
 <div style="text-align: center">
-	<img src="img/attire_logo.png" alt="alt text" width="180px" height="180px">
+	<img src="img/attire_logo.png" alt="alt text" width="120px" height="120px">
 </div>
 # Attire
 
