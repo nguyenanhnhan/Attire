@@ -4,6 +4,7 @@ use Assetic\AssetManager;
 use Assetic\AssetWriter;
 use Assetic\Asset\GlobAsset;
 use Assetic\Asset\AssetCollection;
+use Assetic\Asset\FileAsset;
 use Assetic\Factory\AssetFactory;
 use Assetic\Factory\LazyAssetManager;
 use Assetic\Extension\Twig\TwigFormulaLoader;
@@ -170,6 +171,7 @@ class Attire
 			$default_paths = array(
 				'assets'  => $this->_ci->config->item('assets_path', 'attire', TRUE),
 				'theme'   => $this->_ci->config->item('theme_path', 'attire', TRUE),
+				'bower'	  => $this->_ci->config->item('bower_path','attire', TRUE)
 			);
 			foreach ($default_paths as $key => $path) 
 			{
@@ -662,8 +664,21 @@ class Attire
 	 */
 	public function add_asset($module_name, $path)
 	{
-		$this->_assets[$module_name] = $path;
+		$this->_assets[$module_name] = array(
+			'path' => $path,
+			'type' => 'Assetic\Asset\FileAsset'
+		);
 		return $this;
+	}
+
+	/**
+	 * [add_bower_package description]
+	 * @param [type] $module_name [description]
+	 * @param [type] $path        [description]
+	 */
+	public function add_bower_package($module_name, $path)
+	{
+		return $this->add_asset($module_name,$this->_paths['bower'].$path);
 	}
 
 	/**
@@ -708,16 +723,28 @@ class Attire
 
 			$absolute_path = rtrim($bundles_path.$directory.'assets','/');
 			$global_assets = array(
-				'module_js'  => 'js',
-				'module_css' => 'css',
-				'global_css' => 'global/css',
-				'global_js'  => 'global/js'
+				'module_js'  => array(
+					'path' => "{$absolute_path}/js/{$class}/{$method}/*",
+					'type' => 'Assetic\Asset\GlobAsset'
+				),
+				'module_css' => array(
+					'path' => "{$absolute_path}/css/{$class}/{$method}/*",
+					'type' => 'Assetic\Asset\GlobAsset'
+				),
+				'global_css' => array(
+					'path' => "{$absolute_path}/css/{$class}/*",
+					'type' => 'Assetic\Asset\GlobAsset'
+				),
+				'global_js'  => array(
+					'path' => "{$absolute_path}/js/{$class}/*",
+					'type' => 'Assetic\Asset\GlobAsset'
+				)
 			);
-			foreach (array_merge($global_assets,$this->_assets) as $global => $global_path) 
+			foreach (array_merge($global_assets,$this->_assets) as $global => $params) 
 			{
-				$path = "{$absolute_path}/{$global_path}/{$class}/{$method}/*";
-				$am->set($global, new GlobAsset($path));
-			}			
+				$class_name = $params['type'];
+				$am->set($global, new $class_name($params['path']));
+			}
 		}
 		# Declare filters manager
 		$fm = new FilterManager();
