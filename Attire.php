@@ -654,6 +654,7 @@ class Attire
 			$this->_show_error($e->getMessage());
 		}
 		$filter = new Twig_SimpleFilter($name,$function);
+		$this->_environment->addFilter($filter);
 		return $this;
 	}
 
