@@ -3,7 +3,7 @@ site_url: https://gitlab.com/david-sosa-valdes/ci-twig
 site_description: CI-Twig it's a simple implementation of Twig template engine for CodeIgniter. It supports themes, layouts, templates for regular apps and also for apps that use HMVC.
 site_author: David Sosa Valdes
 
-repo_url: https://github.com/mkdocs/mkdocs/
+repo_url: https://gitlab.com/david-sosa-valdes/ci-attire
 
 pages:
 - ['index.md','Home']
