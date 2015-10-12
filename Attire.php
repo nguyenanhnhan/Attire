@@ -171,7 +171,7 @@ class Attire
 			$default_paths = array(
 				'assets'  => $this->_ci->config->item('assets_path', 'attire', TRUE),
 				'theme'   => $this->_ci->config->item('theme_path', 'attire', TRUE),
-				'bower'	  => $this->_ci->config->item('bower_path','attire', TRUE)
+				#'bower'	  => $this->_ci->config->item('bower_path','attire', TRUE)
 			);
 			foreach ($default_paths as $key => $path) 
 			{
