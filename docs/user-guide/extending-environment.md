@@ -51,7 +51,7 @@ When called by Twig, the PHP executable on the left side receives the filter (be
 
 ##Functions
 
-Functions supporting the same characteristics as the **filters**, except for the options preserves_safety and pre_escapr.
+Functions are defined in the exact same way as **filters**, except for the options preserves_safety and pre_escapr.
 
 ```php
 $this->attire->add_function('function_name', closure_function);

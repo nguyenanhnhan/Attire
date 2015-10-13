@@ -11,7 +11,7 @@ An implementation of Twig template engine combined with Assetic asset management
 
 ##Overview
 
-Attire library supports template inheritance using **Twig** template engine and **Assetic** as an asset management framework in **CodeIgniter 3.0**. This integration is used for developing and maintaining structured templates, layouts and the assets for each section/view/content in your application.
+Attire library supports template inheritance using **Twig** template engine and **Assetic** as an asset management framework in **CodeIgniter 3.0**. This integration is used for develop and maintain structured templates, layouts and assets in your application.
 
 ---
 
@@ -20,54 +20,27 @@ Attire library supports template inheritance using **Twig** template engine and 
 * PHP 5.2.4+
 * CodeIgniter 3.x 
 
-**Note**: Codeigniter 2.x it's not supported.
-
 ---
 
 ##Installation
 
 With Composer:
 
-	composer require "dsv/attire":"^1.2"
-
-Attire is a regular library, so composer should be install it in the **libraries** directory inside your appplication. 
-
+``` bash
+composer require dsv/attire 
+```
 ---
 
 ##Setting up the environment
 
-Before we start, let me remind you to check the configuration of **composer_autoload** inside your **application/config/config.php** file.
-
 Now we need to set the environment where all your templates are stored properly.
 
-###Directory structure
+### Autoloading composer
 
-First create this directory structure inside your CodeIgniter application:
-
-```
-+-APPPATH/
-| +-theme/
-+-FCPATH 
-| +-assets/
-| | +-css/
-| | +-js/
-```
-
-* **APPPATH** is Codeigniter's principal directory, where all your controllers, models and views are placed.
-* **FCPATH** is Codeigniter's secured installation directory, where your **index.php** file is placed (normally outside the application directory).
-
-###Assets permissions
-
-**Assetics** manage the assets used in every template, so you are gonna need to set the **assets** directory with writable permissions.
-
-###Theme example structure
-
-By default **Attire** uses a **Bootstrap** as a template example. If you like to see this example copy the **dist/bootstrap** directory inside of theme directory.
+Enabling this setting in **application/config/config.php** will tell CodeIgniter to look for a Composer package auto-loader script.
 
 ```
-+-APPPATH/
-| | +-theme/
-| | | +-bootstrap/
+$config['composer_autoload'] = 'vendor/autoload.php';
 ```
 
 ###Config File
@@ -80,7 +53,35 @@ By default **Attire** uses a **Bootstrap** as a template example. If you like to
 | | | +-attire.php
 ```
 
-These preferences come with the default configuration.
+###Directory structure
+
+Create this directory structure inside your CodeIgniter application:
+
+```
++-APPPATH/
+| +-themes/
++-FCPATH 
+| +-assets/
+| | +-css/
+| | +-js/
+```
+
+* **APPPATH** is Codeigniter's principal directory, where all your controllers, models and views are placed.
+* **FCPATH** is Codeigniter's secured installation directory, where your **index.php** file is placed (normally outside the application directory).
+
+**Note:** you can override the default structure, check the [config guide](#Config_guide) for more details.
+
+###Assets permissions
+
+**Assetics** manage the assets used in every template, so you are gonna need to set the **assets** directory with writable permissions.
+
+###Theme example structure
+
+Install the **Attire Bootstrap** theme with composer:
+
+``` bash
+composer require dsv/attire-theme-bootstrap
+```
 
 ###Before we continue
 
@@ -94,25 +95,24 @@ Now you're ready to start working with Attire.
 
 ##Getting started
 
-Getting started is like load any CI's Library:
+Load the library in your controller:
 
 ```php
 $this->load->library('attire/attire'); 
 ``` 
 
-Attire mantains all your views in order, so in every theme structure needs to be a layout and a views directory.
-
-Bootstrap theme includes a **container** layout structure. 
+Next set the theme and layout:
 
 ```php
 $this->attire->set_theme('bootstrap');
-$this->attire->set_layout('container');
+$this->attire->set_layout('jumbotron');
 ```
+Bootstrap theme includes some layout example structures. 
 
 **Note:** chaining method also supported.
 
 ```php
-$this->attire->set_theme('bootstrap')->set_layout('container');
+$this->attire->set_theme('bootstrap')->set_layout('jumbotron');
 ```
 
 <!-- Also create a directory inside the **views** directory with the name of the controller where it will be used. -->
@@ -126,7 +126,7 @@ $this->attire->render();
 
 An example using **Attire** in the Welcome Controller:
 
-```php
+```
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Welcome extends CI_Controller 
@@ -134,10 +134,11 @@ class Welcome extends CI_Controller
 	public function index()
 	{	
 		$this->load->library('attire/attire');
-		$this->attire->set_theme('bootstrap')->set_layout('container');
+		$this->attire->set_theme('bootstrap')->set_layout('jumbotron');
 		$this->attire->render();
 	}
 }
+?>
 ```
 
 Let's take a look in the browser:
@@ -150,35 +151,23 @@ This is the current output of the render method. Now you can use the **Bootstrap
 
 ##Adding views
 
-So far we've only displayed the default template and layout. You can add views to this layout using the **add_view** command.
+So far we've only displayed the default template and layout. You can add views to this layout using the **add_view** method.
 
 ```php
-$this->attire->add_view($view,$params)
+$this->attire->add_view($view, $params);
 ```
-Where ```$view``` is the view file name and ```$params``` is an array of variables used inside the view interface.
-
-It's exactly like the Codeigniter's method: 
+Where ```$view``` is the view file name and ```$params``` is an array of variables used inside the view interface. It's exactly like the Codeigniter's method: 
 
 ```php
-$this->load->view($view,$params)
+$this->load->view($view, $params);
 ``` 
-
 
 ###Example
 
-Using the `Welcome` controler as an example and the `index` as method, let's create a directory called **index** inside the **welcome** view directory:
-
-```
-+-APPPATH/
-| | +-views/
-| | | +-welcome/
-| | | | +-index/
-```
-
-Then create a view inside the **index** directory called **foo.php**:
+Create a view **foo.php** inside the **VIEWPATH** directory:
 
 ```html
-<!-- views/welcome/index/foo.php -->
+<!-- application/views/foo.php -->
 <h2>Header</h2>
 <p>paragraph<p>
 
@@ -194,11 +183,12 @@ class Welcome extends CI_Controller
 	public function index()
 	{	
 		$this->load->library('attire/attire');
-		$this->attire->set_theme('bootstrap')->add_layout('container');
-		$this->attire->add_view('welcome/index/foo');
+		$this->attire->set_theme('bootstrap')->add_layout('jumbotron');
+		$this->attire->add_view('foo');
 		$this->attire->render();	
 	}
 }
+?>
 ```
 And this is the output:
 
@@ -215,12 +205,13 @@ class Welcome extends CI_Controller
 	{	
 		$this->load->library('attire/attire');
 		$this->attire->set_theme('bootstrap')
-					 ->set_layout('container')
-					 ->add_view('welcome/index/foo')
-					 ->add_view('welcome/index/fighters')
+					 ->set_layout('jumbotron')
+					 ->add_view('foo')
+					 ->add_view('fighters')
 					 ->render();	
 	}
 }
+?>
 ```
 ---
 
@@ -236,35 +227,25 @@ class Welcome extends CI_Controller
 	public function __construct()
 	{
 		$this->load->library('attire/attire');
-		$this->attire->set_theme('bootstrap')->add_layout('container');
+		$this->attire->set_theme('bootstrap')->add_layout('jumbotron');
 	}
 	
 	public function index()
 	{	
-		$this->attire->add_view('welcome/index/foo')->render();	
+		$this->attire->add_view('foo')
+					 ->render();	
 	}
 
 	public function other()
 	{
-		$this->attire->add_view('welcome/other/fighters')->render();		
+		$this->attire->add_view('fighters')
+					 ->render();		
 	}
 }
+?>
 ```
 
-
-Here's the directory structure for this example.
-
-```
-+-application
-| +-views/
-| | +-welcome/
-| | | +-index/
-| | | | +-foo.php
-| | | +-other
-| | | | +-fighters.php
-```
-
-Or you can specify your view path and add views in Twig style:
+Or you can specify your view path and add views in **Twig** style:
 
 ```php
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
@@ -275,27 +256,23 @@ class Welcome extends CI_Controller
     {
         parent::__construct();
 		$this->load->library('attire/attire');
-		$this->attire->set_theme('bootstrap')->add_layout('container');
+		$this->attire->set_theme('bootstrap')->add_layout('jumbotron');
     }
 
 	public function index()
 	{
 	    $this->attire->add_path('<outside-viewpath>','some');
-		$this->attire->add_view('@some/foo')->render();	
+		$this->attire->add_view('@some/foo')
+					 ->render();	
 	}
 }
+?>
 ```
 
-And there you go, adding views to Attire is easy as the CodeIgniter natural method's.
+And there you go, adding views to **Attire** is easy as the **CodeIgniter** method's.
 
 ---
 
 ##Getting help
 
-To get help with Attire, please use the discussion group or GitLab issues.
-
-<!---
-##Related Twig Implementations
-
-[https://github.com/kenjis/codeigniter-ss-twig](https://github.com/kenjis/codeigniter-ss-twig)
--->
+To get help with **Attire**, please use the discussion group or **GitLab** issues.

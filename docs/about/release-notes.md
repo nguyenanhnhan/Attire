@@ -2,6 +2,11 @@
 
 ---
 
+###v1.2.8
+
+* Fix bugs (filters,installer name and assetic manager)
+* Improved the config file callouts.
+
 ###v1.2.0 (oniricosistemas)
 
 * Add CI helper/libraries functions inside the config file.

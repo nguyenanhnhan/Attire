@@ -23,15 +23,15 @@ Create a new directory structure inside the theme directory:
 
 You are gonna need to create a new structured **theme.twig** file. This is the default template used in every **Attire** theme instance:
 
-```
+```twig
 <!DOCTYPE html>
 <html>
 	<head>
 		{% block head %}
-			<title>{% block title %}{% endblock %} - {{system_fullname|title}}</title>
+			<title>{% block title %}{% endblock %} - {{app_fullname|title}}</title>
 		{% endblock %}
 		{% block stylesheets %}
-			{% stylesheets 'css/*' '@global_css' '@module_css' filter='cssrewrite' %}
+			{% stylesheets 'css/*' filter='cssrewrite' %}
 				<link href="{{ base_url('assets/' ~ asset_url) }}" type="text/css" rel="stylesheet" />
 			{% endstylesheets %}		
 		{% endblock %}
@@ -42,7 +42,7 @@ You are gonna need to create a new structured **theme.twig** file. This is the d
 			{% block footer %}{% endblock %}
 		</div>
 		{% block javascripts %}
-			{% javascripts 'js/*' '@global_js' '@module_js' %}
+			{% javascripts 'js/*' %}
 				<script src="{{ base_url('assets/' ~ asset_url) }}"></script>
 			{% endjavascripts %}
 		{% endblock %}
@@ -56,7 +56,7 @@ Use it as a basic template and create something unique.
 
 Same as **theme.twig**, the **layouts/new_layout.twig** default template: 
 
-```php
+```twig
 {% extends "theme.twig" %}
 {% block title %}{{'new_layout'|capitalize}}{% endblock %}
 
