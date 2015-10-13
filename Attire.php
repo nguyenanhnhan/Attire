@@ -49,6 +49,23 @@ use Assetic\Filter\CssRewriteFilter;
 class Attire
 {
 	/**
+	 * CodeIgniter required functions
+	 * @var array
+	 */
+	protected $_ci_functions = array();
+
+	/**
+	 * Default themes path
+	 * @var string
+	 */
+	protected $_theme_path = APPPATH.'themes/';
+
+	/**
+	 * Default assets path
+	 * @var string
+	 */
+	protected $_assets_path = FCPATH.'assets/';
+	/**
 	 * [$_assets description]
 	 * @var array
 	 */
@@ -164,18 +181,35 @@ class Attire
         Twig_Autoloader::register();
         try 
         {
-	        $this->_ci->load->config('attire', TRUE);   
+        	# Set config params
+	        $this->_ci->load->config('attire', TRUE, TRUE);   
         	$this->_set($config);
 
-			# Set absolute of assets and theme instances
+        	# Attire use URL helper by default
+        	$this->_ci->load->helper('url');
+        	$this->_ci_functions['base_url'] = function($path = ""){
+        		return base_url($path);
+        	};
+
+			# Set absolute paths of assets and theme instances
 			$default_paths = array(
 				'assets'  => $this->_ci->config->item('assets_path', 'attire', TRUE),
 				'theme'   => $this->_ci->config->item('theme_path', 'attire', TRUE),
-				#'bower'	  => $this->_ci->config->item('bower_path','attire', TRUE)
 			);
 			foreach ($default_paths as $key => $path) 
 			{
-				if ($path !== '' && (! file_exists($path))) 
+				if (is_null($path)) 
+				{
+					if (property_exists($this, '_'.$key.'_path')) 
+					{
+						$path = $this->{'_'.$key.'_path'};
+					}
+					else
+					{
+						throw new Exception("Missing the config path of '". strtoupper($key)."'");
+					}
+				}
+				if (! file_exists($path)) 
 				{
 					throw new Exception("Directory {$path} currently not exist.");
 				}
@@ -573,66 +607,6 @@ class Attire
 	}
 
 	/**
-	 * Set CI Helper functions
-	 *
-	 * Used as a Twig function in every template if a specific helper is loaded in controller.
-	 *
-	 * Note: Some other functions are needed to add, this are the principal functions used in 
-	 * 		 every CI Project.
-	 * @return void 
-	 */
-	private function _set_ci_functions()
-	{
-		$functions = array(	
-			'base_url' => function($path){ 
-				return base_url($path); 
-			},
-			'site_url' => function($path){ 
-				return site_url($path); 
-			},
-			'current_url' => function(){
-				return current_url();
-			},
-			'anchor' => function($uri = '', $title = '', $attributes = ''){
-				return anchor($uri, $title, $attributes);
-			},
-			'form_open' => function($path, $params = array()){ 
-				return form_open($path, $params); 
-			},
-			'form_open_multipart' => function($path, $params = array()){
-				return form_open_multipart($path, $params);
-			},
-			'form_close' => function(){
-				return form_close();
-			},
-            'javascript_tag' => function($content = null, $html_attributes = array()){
-                return javascript_tag($content = null, $html_attributes = array());
-            },
-            'stylesheet_tag' => function($content = null, $html_attributes = array()){
-                return stylesheet_tag($content = null, $html_attributes = array());
-            },
-            'include_javascript' => function($file, $additional = null){
-                return include_javascript($file, $additional = null);
-            },
-            'include_stylesheet' => function($file, $additional = null){
-                return include_stylesheet($file, $additional = null);
-            },
-            'lang' => function($line, $for = '', $attributes = array()){
-            	return lang($line, $for, $attributes);
-            }		
-		);
-        $config_functions = $this->_ci->config->item('twig_ci_functions', 'attire', TRUE);
-        is_array($config_functions) && $functions = array_merge($functions,$config_functions);
-		foreach ($functions as $name => $function) 
-		{
-			if (function_exists($name)) 
-			{
-				$this->add_function($name,$function);
-			}
-		}
-	}
-
-	/**
 	 * Add Twig filters same as functions
 	 * 
 	 * @param [type] $name     [description]
@@ -659,6 +633,43 @@ class Attire
 	}
 
 	/**
+	 * Set current theme global vars inside config file.
+	 */
+	public function set_config_globals()
+	{
+		$globals = $this->_ci->config->item('global_vars', 'attire', TRUE);
+		foreach ((array) $globals as $key => $value) 
+		{
+			(is_callable($value))?
+				$this->set_param($key,call_user_func($value)):
+				$this->set_param($key,$value);
+		}
+	}
+
+	/**
+	 * Set Codeigniter helper functions inside config file
+	 */
+	public function set_config_functions()
+	{
+		$functions = (array) $this->_ci->config->item('twig_ci_functions', 'attire', TRUE);
+		foreach (array_merge($functions, $this->_ci_functions) as $name => $function) 
+		{
+			if (function_exists($name)) 
+			{
+				$this->add_function($name,$function);
+			}
+		}		
+	}
+
+	################################################################################
+	# Bower packages (not stable)
+	################################################################################
+	
+	/**
+	 * @todo implement dynamic assets using bower
+	 */
+
+	/**
 	 * [add_asset description]
 	 * @param [type] $module_name [description]
 	 * @param [type] $path        [description]
@@ -679,8 +690,11 @@ class Attire
 	 */
 	public function add_bower_package($module_name, $path)
 	{
+		#$this->_paths['bower'] = $this->_ci->config->item('bower_path','attire', TRUE);
 		return $this->add_asset($module_name,$this->_paths['bower'].$path);
-	}
+	}	
+
+	################################################################################
 
 	/**
 	 * Render the Twig template with Assetic manager
@@ -697,16 +711,9 @@ class Attire
 		$this->_ci->benchmark->mark('AttireRender_start');
 		# Autoload url helper (required)
 		$this->_ci->load->helper('url');		
-		# Set current Theme global vars
-		$globals = $this->_ci->config->item('global_vars', 'attire', TRUE);
-		foreach ($globals as $key => $value) 
-		{
-			(is_callable($value))?
-				$this->set_param($key,call_user_func($value)):
-				$this->set_param($key,$value);
-		}
-		# Set Codeigniter Helper functions inside Attire environment
-		$this->_set_ci_functions();
+		# Set additional config functions/global vars inside Attire environment
+		$this->set_config_globals();
+		$this->set_config_functions();
 		# Add default view path
 		$this->add_path(VIEWPATH, 'VIEWPATH');
 		# Twig environment (master of puppets)
