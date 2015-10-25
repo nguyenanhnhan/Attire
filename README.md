@@ -21,8 +21,6 @@ Attire library supports template inheritance using **Twig** template engine and 
 * PHP 5.2.4+
 * CodeIgniter 3.x 
 
-**Note**: Codeigniter 2.x is not supported.
-
 ### Other Twig Implementations for Codeigniter
 
 * [https://github.com/kenjis/codeigniter-ss-twig](https://github.com/kenjis/codeigniter-ss-twig)
