@@ -12,12 +12,14 @@ An implementation of **Twig template engine** and **Assetic asset management fra
 
 Attire library supports template inheritance using **Twig** template engine and **Assetic** as an asset management framework in CodeIgniter 3.0. This integration it's gonna make your life easier for developing and maintaining structured templates, layouts and even the assets for each section in your application.
 
+### Demo
+
+[![Attire Demo](http://img.youtube.com/vi/SwAzluknlNI/0.jpg)](https://www.youtube.com/watch?v=SwAzluknlNI)
+
 ### Requirements
 
 * PHP 5.2.4+
 * CodeIgniter 3.x 
-
-**Note**: Codeigniter 2.x is not supported.
 
 ### Other Twig Implementations for Codeigniter
 
