@@ -49,6 +49,12 @@ use Assetic\Filter\CssRewriteFilter;
 class Attire
 {
 	/**
+	 * Default bundle path
+	 * @var string
+	 */
+	protected $_bundle_path;
+
+	/**
 	 * CodeIgniter required functions
 	 * @var array
 	 */
@@ -728,13 +734,15 @@ class Attire
 		# Declare asset manager and add global paths
 		$am = new AssetManager();
 		# Assets global paths
-		if ($bundles_path = config_item('bundles_path')) 
+		if ($this->_bundle_path !== NULL) 
 		{
 			$class  = $this->_ci->router->fetch_class();
 			$method = $this->_ci->router->fetch_method();
 			$directory = $this->_ci->router->directory;
+			$this->_bundle_path = rtrim($this->_bundle_path,'/').'/';
 
-			$absolute_path = rtrim($bundles_path.$directory.'assets','/');
+			$absolute_path = rtrim($this->_bundle_path.$directory.'assets','/');
+
 			$global_assets = array(
 				'module_js'  => array(
 					'path' => "{$absolute_path}/js/{$class}/{$method}/*",
