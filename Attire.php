@@ -247,6 +247,7 @@ class Attire
 			$this->_show_error($e->getMessage());		
 		}
 		$this->_extension = $new_extension;
+		return $this;
 	}
 
 	/**
@@ -567,7 +568,7 @@ class Attire
 	 * @param string $extension file extension used as default
 	 * @return void 
 	 */
-	public function add_view($view = "", $params = array(), $extension = '.php')
+	public function add_view($view = "", $params = array(), $extension = NULL)
 	{
 		try 
 		{
@@ -588,19 +589,23 @@ class Attire
 		{
 			$this->_show_error($e->getMessage());
 		}
+
+		$extension !== NULL && $this->_extension = $extension;
+
 		if ($this->_restricted_mode !== FALSE) 
 		{
 			$class = $this->_ci->router->fetch_class();
 			$method = $this->_ci->router->fetch_method();
-			$path = "@VIEWPATH/{$class}/{$method}/{$view}{$extension}";
+			
+			$path = "@VIEWPATH/{$class}/{$method}/{$view}{$this->_extension}";
 		}
 		elseif (strpos($view, '@') === FALSE) 
 		{
-			$path = "@VIEWPATH/{$view}{$extension}";
+			$path = "@VIEWPATH/{$view}{$this->_extension}";
 		}
 		else
 		{
-			$path = "{$view}{$extension}";
+			$path = "{$view}{$this->_extension}";
 		}
 		$this->_views[$path] = (array) $params;
 		return $this;
