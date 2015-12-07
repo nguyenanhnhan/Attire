@@ -188,7 +188,7 @@ class Attire
         try 
         {
         	# Set config params
-	        $this->_ci->load->config('attire', TRUE, TRUE);   
+	        $this->_ci->load->config('attire', FALSE, TRUE); 
         	$this->_set($config);
 
         	# Attire use URL helper by default
@@ -199,8 +199,8 @@ class Attire
 
 			# Set absolute paths of assets and theme instances
 			$default_paths = array(
-				'assets'  => $this->_ci->config->item('assets_path', 'attire', TRUE),
-				'theme'   => $this->_ci->config->item('theme_path', 'attire', TRUE),
+				'assets'  => $this->_ci->config->item('assets_path'),
+				'theme'   => $this->_ci->config->item('theme_path'),
 			);
 			foreach ($default_paths as $key => $path) 
 			{
@@ -648,11 +648,11 @@ class Attire
 	 */
 	public function set_config_globals()
 	{
-		$globals = $this->_ci->config->item('global_vars', 'attire', TRUE);
+		$globals = $this->_ci->config->item('global_vars');
 		foreach ((array) $globals as $key => $value) 
 		{
 			(is_callable($value))?
-				$this->set_param($key,call_user_func($value)):
+				$this->set_param($key, call_user_func($value)):
 				$this->set_param($key,$value);
 		}
 	}
@@ -662,7 +662,7 @@ class Attire
 	 */
 	public function set_config_functions()
 	{
-		$functions = (array) $this->_ci->config->item('twig_ci_functions', 'attire', TRUE);
+		$functions = (array) $this->_ci->config->item('twig_ci_functions');
 		foreach (array_merge($functions, $this->_ci_functions) as $name => $function) 
 		{
 			if (function_exists($name)) 
@@ -731,6 +731,7 @@ class Attire
 		$twig = &$this->_environment;				
 		$escaper = new Twig_Extension_Escaper('html');
 		$twig->addExtension($escaper);	
+		$twig->addFilter('var_dump', new Twig_Filter_Function('var_dump'));
 		# Declare asset manager and add global paths
 		$am = new AssetManager();
 		# Assets global paths
@@ -783,7 +784,7 @@ class Attire
 		# This is too lazy, we need a lazy asset manager...
 		$am = new LazyAssetManager($factory);
 		$am->setLoader('twig', new TwigFormulaLoader($twig));
-		# Adding the Twig resource (following the assetic documentation)
+		# Add the Twig resource (following the assetic documentation)
 		$resource = new TwigResource($this->_loader, $this->_default_template.$this->_extension);
 		$am->addResource($resource, 'twig');
 		# Write all assets files in the output directory in one or more files
