@@ -22,7 +22,7 @@
         "twig/twig": "^1.18",
         "kriswallsmith/assetic": "^1.2"
     }, 
-    "homepage": "https://gitlab.com/david-sosa-valdes/ci-attire",
+    "homepage": "https://github.com/davidsosavaldes/Attire",
     "authors": [
         {
             "name": "David Sosa Valdes",
@@ -30,13 +30,13 @@
         }
     ],
     "support":{
-        "issues": "https://gitlab.com/david-sosa-valdes/ci-attire/issues",
+        "issues": "https://github.com/davidsosavaldes/Attire/issues",
         "wiki": "http://ci-attire.readthedocs.org/",
         "email": "david.sosa.valdes@gmail.com"
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "1.2.x-dev"
+            "dev-master": "1.3.x-dev"
         },
         "installer-name": "attire"
     }    
